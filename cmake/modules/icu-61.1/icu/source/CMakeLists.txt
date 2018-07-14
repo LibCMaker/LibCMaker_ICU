@@ -67,6 +67,25 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${LIBDIR})
 # Location of the executables before "make install" is used
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BINDIR})
 
+# RPATH settings
+# https://cmake.org/Wiki/CMake_RPATH_handling
+# https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/RPATH-handling
+if(ICU_ENABLE_RPATH)
+  if(IOS)
+    # TODO: iOS dynamic framework
+  elseif(ANDROID)
+    # *.so libraries loaded by Java code, RPATH will not be used
+  elseif(UNIX)
+    if(APPLE)
+      # https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/dyld.1.html
+      set(CMAKE_INSTALL_RPATH "@executable_path/../${CMAKE_INSTALL_LIBDIR}")
+    else()
+      # https://linux.die.net/man/8/ld-linux
+      set(CMAKE_INSTALL_RPATH "\$ORIGIN/../${CMAKE_INSTALL_LIBDIR}")
+    endif()
+  endif()
+endif()
+
 # Variables for CMake package configurations
 set(config_PACKAGE_TEMPLATE "${CMAKE_CURRENT_LIST_DIR}/cmake/Config.in.cmake")
 set(config_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}/cmake")
@@ -75,26 +94,6 @@ set(config_PACKAGE "${config_BINARY_DIR}/${PROJECT_NAME}Config.cmake")
 set(config_PACKAGE_VERSION
   "${config_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
 )
-
-# TODO: need?
-### RPATH settings
-# https://cmake.org/Wiki/CMake_RPATH_handling
-# https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/RPATH-handling
-#if(ICU_ENABLE_RPATH)
-#  if(IOS)
-#    # TODO: iOS dynamic framework
-#  elseif(ANDROID)
-#    # *.so libraries loaded by Java code, RPATH will not be used
-#  elseif(UNIX)
-#    if(APPLE)
-#      # https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/dyld.1.html
-#      set(CMAKE_INSTALL_RPATH "@executable_path/../${CMAKE_INSTALL_LIBDIR}")
-#    else()
-#      # https://linux.die.net/man/8/ld-linux
-#      set(CMAKE_INSTALL_RPATH "\$ORIGIN/../${CMAKE_INSTALL_LIBDIR}")
-#    endif()
-#  endif()
-#endif()
 
 
 #############################################################################
