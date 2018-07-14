@@ -159,6 +159,11 @@ find_package(ICU 61.1 REQUIRED CONFIG)
 
 # Build test executables
 
+# To run it on Linux with the shared ICU libs
+# which are built with non standard path in CMAKE_INSTALL_PREFIX use:
+# LD_LIBRARY_PATH="<${CMAKE_INSTALL_PREFIX}>/lib:.:$LD_LIBRARY_PATH" ./LibCMaker_ICU_Compile_Test
+# where <${CMAKE_INSTALL_PREFIX}> is path which is used as value for CMAKE_INSTALL_PREFIX.
+
 # Get an example sources from the ICU sources.
 include(
   ${PROJECT_SOURCE_DIR}/cmake/LibCMaker_ICU/cmake/modules/cmr_icu_get_download_params.cmake)
