@@ -10,17 +10,16 @@
 
 
 # TODO: MSVC: lib suffix == ${VERSION_MAJOR} (61), for .dll files.
-# TODO: check the source/cmake/Config.in.cmake and generated CMake package configs.
 # TODO: check work ICU_CONDITIONAL()
 
-# TODO: additional compiler and link flags and link libs from mh-*
+# TODO: take additional compiler and link flags and link libs from mh-*
 # TODO: THREADSC*FLAGS defined in mh-*
-# TODO: compiler flags and rules for Android from:
+# TODO: take compiler flags and rules for Android from:
 # https://android.googlesource.com/platform/external/icu/
 # git clone https://android.googlesource.com/platform/external/icu
 
 # TODO: Using the file "uconfig.h.prepend", see configure_2nd.cmake
-# Flags from uconfig.h.prepend are used by INTERFACE_COMPILE_DEFINITIONS. 
+# Flags from uconfig.h.prepend are used by INTERFACE_COMPILE_DEFINITIONS.
 
 
 #############################################################################
@@ -167,7 +166,6 @@ install(
   EXPORT "${TARGETS_EXPORT_NAME}"
   NAMESPACE "${TARGETS_NAMESPACE}"
   DESTINATION "${config_INSTALL_DIR}"
-#  EXPORT_LINK_INTERFACE_LIBRARIES # TODO: need?
 )
 
 
