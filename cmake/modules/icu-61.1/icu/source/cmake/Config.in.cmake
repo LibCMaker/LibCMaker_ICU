@@ -11,11 +11,11 @@ if(@HAVE_LIB_M@)
   if(NOT LIB_M_LOCATION)
     message(STATUS "'m' library is not found.")
   endif()
-  set(LIB_M_TARGET @LIB_M_TARGET@)
-  add_library(${LIB_M_TARGET} SHARED IMPORTED)
-  set_target_properties(${LIB_M_TARGET} PROPERTIES
-    IMPORTED_LOCATION "${LIB_M_LOCATION}"
-  )
+#  set(LIB_M_TARGET @LIB_M_TARGET@)
+#  add_library(${LIB_M_TARGET} SHARED IMPORTED)
+#  set_target_properties(${LIB_M_TARGET} PROPERTIES
+#    IMPORTED_LOCATION "${LIB_M_LOCATION}"
+#  )
 endif()
 
 if(@HAVE_LIB_DL@)
@@ -23,11 +23,11 @@ if(@HAVE_LIB_DL@)
   if(NOT LIB_DL_LOCATION)
     message(STATUS "'${CMAKE_DL_LIBS}' library is not found.")
   endif()
-  set(LIB_DL_TARGET @LIB_DL_TARGET@)
-  add_library(${LIB_DL_TARGET} SHARED IMPORTED)
-  set_target_properties(${LIB_DL_TARGET} PROPERTIES
-    IMPORTED_LOCATION "${LIB_DL_LOCATION}"
-  )
+#  set(LIB_DL_TARGET @LIB_DL_TARGET@)
+#  add_library(${LIB_DL_TARGET} SHARED IMPORTED)
+#  set_target_properties(${LIB_DL_TARGET} PROPERTIES
+#    IMPORTED_LOCATION "${LIB_DL_LOCATION}"
+#  )
 endif()
 
 include("${CMAKE_CURRENT_LIST_DIR}/@TARGETS_EXPORT_NAME@.cmake")

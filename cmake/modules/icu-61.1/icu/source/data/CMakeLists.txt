@@ -304,7 +304,7 @@ if(PKGDATA_MODE STREQUAL "dll" OR PKGDATA_MODE STREQUAL "static")
   #include(${PROJECT_SOURCE_DIR}/common_icu_lib_includes.cmake)  # Not included.
 
   ### Library's specific flags
-  set_property(TARGET ${lib_NAME} APPEND PROPERTY
+  set_property(TARGET ${lib_NAME} APPEND_STRING PROPERTY
     LINK_FLAGS ${LDFLAGSICUDT}
   )
 

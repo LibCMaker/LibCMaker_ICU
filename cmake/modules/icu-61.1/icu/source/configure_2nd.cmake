@@ -107,7 +107,7 @@ set(SHAREDLIBCXXFLAGS "")
 set(SHAREDLIBCPPFLAGS "")
 
 set(LIBS "")
-set(LDFLAGS "")
+set(LDFLAGS " ")  # Property 'LINK_FLAGS' is appendable string, not list.
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -234,12 +234,13 @@ if(LIB_M_LOCATION)
   )
   if(_HAVE_LIB_M)
     set(HAVE_LIB_M ON)
-    set(LIB_M_TARGET "${TARGETS_NAMESPACE}m")
-    add_library(${LIB_M_TARGET} SHARED IMPORTED)
-    set_target_properties(${LIB_M_TARGET} PROPERTIES
-      IMPORTED_LOCATION "${LIB_M_LOCATION}"
-    )
-    list(INSERT LIBS 0 ${LIB_M_TARGET})
+#    set(LIB_M_TARGET "${TARGETS_NAMESPACE}m")
+#    add_library(${LIB_M_TARGET} SHARED IMPORTED)
+#    set_target_properties(${LIB_M_TARGET} PROPERTIES
+#      IMPORTED_LOCATION "${LIB_M_LOCATION}"
+#    )
+#    list(INSERT LIBS 0 ${LIB_M_TARGET})
+    list(INSERT LIBS 0 "m")
   endif()
 endif()
 
@@ -381,12 +382,13 @@ if(U_ENABLE_DYLOAD)
         if(_HAVE_DLOPEN_DL)
           set(HAVE_DLOPEN 1)
           set(HAVE_LIB_DL ON)
-          set(LIB_DL_TARGET "${TARGETS_NAMESPACE}dl")
-          add_library(${LIB_DL_TARGET} SHARED IMPORTED)
-          set_target_properties(${LIB_DL_TARGET} PROPERTIES
-            IMPORTED_LOCATION "${LIB_DL_LOCATION}"
-          )
-          list(INSERT LIBS 0 ${LIB_DL_TARGET})
+#          set(LIB_DL_TARGET "${TARGETS_NAMESPACE}dl")
+#          add_library(${LIB_DL_TARGET} SHARED IMPORTED)
+#          set_target_properties(${LIB_DL_TARGET} PROPERTIES
+#            IMPORTED_LOCATION "${LIB_DL_LOCATION}"
+#          )
+#          list(INSERT LIBS 0 ${LIB_DL_TARGET})
+          list(INSERT LIBS 0 ${CMAKE_DL_LIBS})
         else()
           set(HAVE_DLOPEN 0)
         endif()
@@ -1082,6 +1084,16 @@ list(APPEND CXXFLAGS ${THREADSCXXFLAGS} ${CLANGCXXFLAGS})
 
 # append all config cppflags
 list(APPEND CPPFLAGS ${CONFIG_CPPFLAGS} ${UCONFIG_CPPFLAGS})
+
+
+
+# icucommon
+#  "-DDEFAULT_ICU_PLUGINS=\"/usr/local/lib/icu\" "
+#list(APPEND CPPFLAGS _REENTRANT PIC)
+#set(LDFLAGS "${LDFLAGS} -Wl,-Bsymbolic")
+
+
+
 status_message("CPPFLAGS=${CPPFLAGS}")
 status_message("CFLAGS=${CFLAGS}")
 status_message("CXXFLAGS=${CXXFLAGS}")

@@ -26,7 +26,7 @@ set_property(TARGET ${lib_NAME} APPEND PROPERTY
     #CPPFLAGS+=  "-DU_BUILD=\"@build@\"" "-DU_HOST=\"@host@\"" "-DU_CC=\"@CC@\"" "-DU_CXX=\"@CXX@\""
     #CPPFLAGS+=  "-DU_BUILD=\"x86_64-pc-linux-gnu\"" "-DU_HOST=\"x86_64-pc-linux-gnu\"" "-DU_CC=\"clang\"" "-DU_CXX=\"clang++\""
 )
-set_property(TARGET ${lib_NAME} APPEND PROPERTY
+set_property(TARGET ${lib_NAME} APPEND_STRING PROPERTY
   LINK_FLAGS ${LDFLAGSICUTOOLUTIL}
 )
 

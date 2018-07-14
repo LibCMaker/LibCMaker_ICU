@@ -38,7 +38,7 @@ if(MSVC)
     )
   endif()
 endif()
-set_property(TARGET ${lib_NAME} APPEND PROPERTY
+set_property(TARGET ${lib_NAME} APPEND_STRING PROPERTY
   LINK_FLAGS ${LDFLAGSICUUC}
 )
 
