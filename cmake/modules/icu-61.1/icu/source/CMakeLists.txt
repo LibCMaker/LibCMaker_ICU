@@ -154,6 +154,7 @@ write_basic_package_version_file(
 configure_package_config_file(
   "${config_PACKAGE_TEMPLATE}"
   "${config_PACKAGE}"
+  PATH_VARS ICUPKGDATA_DIR
   INSTALL_DESTINATION "${config_INSTALL_DIR}"
 )
 

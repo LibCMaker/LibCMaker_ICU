@@ -1,38 +1,5 @@
 @PACKAGE_INIT@
 
-# Find the required libraries
-
-if(@HAVE_THREADS@)
-  find_package(Threads REQUIRED)
-endif()
-
-if(@HAVE_LIB_M@)
-  find_library(LIB_M_LOCATION NAMES m)
-  if(NOT LIB_M_LOCATION)
-    message(STATUS "'m' library is not found.")
-  endif()
-#  set(LIB_M_TARGET @LIB_M_TARGET@)
-#  add_library(${LIB_M_TARGET} SHARED IMPORTED)
-#  set_target_properties(${LIB_M_TARGET} PROPERTIES
-#    IMPORTED_LOCATION "${LIB_M_LOCATION}"
-#  )
-endif()
-
-if(@HAVE_LIB_DL@)
-  find_library(LIB_DL_LOCATION NAMES ${CMAKE_DL_LIBS})
-  if(NOT LIB_DL_LOCATION)
-    message(STATUS "'${CMAKE_DL_LIBS}' library is not found.")
-  endif()
-#  set(LIB_DL_TARGET @LIB_DL_TARGET@)
-#  add_library(${LIB_DL_TARGET} SHARED IMPORTED)
-#  set_target_properties(${LIB_DL_TARGET} PROPERTIES
-#    IMPORTED_LOCATION "${LIB_DL_LOCATION}"
-#  )
-endif()
-
-include("${CMAKE_CURRENT_LIST_DIR}/@TARGETS_EXPORT_NAME@.cmake")
-check_required_components("@PROJECT_NAME@")
-
 function(__icu_set_pkgdata_path)
   if(EXISTS "${ICU_PKGDATA_EXECUTABLE}")
     return()
@@ -105,6 +72,40 @@ function(__icu_set_icupkg_path)
   set(ICU_ICUPKG_EXECUTABLE "${ICU_ICUPKG_EXECUTABLE}" PARENT_SCOPE)
 endfunction()
 
+
+# Find the required libraries
+if(@HAVE_THREADS@)
+  find_package(Threads REQUIRED)
+endif()
+if(@HAVE_LIB_M@)
+  find_library(LIB_M_LOCATION NAMES m)
+  if(NOT LIB_M_LOCATION)
+    message(STATUS "'m' library is not found.")
+  endif()
+#  set(LIB_M_TARGET @LIB_M_TARGET@)
+#  add_library(${LIB_M_TARGET} SHARED IMPORTED)
+#  set_target_properties(${LIB_M_TARGET} PROPERTIES
+#    IMPORTED_LOCATION "${LIB_M_LOCATION}"
+#  )
+endif()
+if(@HAVE_LIB_DL@)
+  find_library(LIB_DL_LOCATION NAMES ${CMAKE_DL_LIBS})
+  if(NOT LIB_DL_LOCATION)
+    message(STATUS "'${CMAKE_DL_LIBS}' library is not found.")
+  endif()
+#  set(LIB_DL_TARGET @LIB_DL_TARGET@)
+#  add_library(${LIB_DL_TARGET} SHARED IMPORTED)
+#  set_target_properties(${LIB_DL_TARGET} PROPERTIES
+#    IMPORTED_LOCATION "${LIB_DL_LOCATION}"
+#  )
+endif()
+
+# Include all libraries targets
+include("${CMAKE_CURRENT_LIST_DIR}/@TARGETS_EXPORT_NAME@.cmake")
+
+# Various checks
+check_required_components("@PROJECT_NAME@")
+
 if(@ICU_ENABLE_TOOLS@)
   __icu_set_pkgdata_path()
   __icu_set_icupkg_path()
@@ -113,7 +114,7 @@ endif()
 if(@PKGDATA_MODE@ STREQUAL "common")
   get_filename_component(
       ICU_DATA_FILE
-      "@ICUPKGDATA_DIR@/@ICUDATA_SOURCE_ARCHIVE_FILE_NAME@"
+      "@PACKAGE_ICUPKGDATA_DIR@/@ICUDATA_SOURCE_ARCHIVE_FILE_NAME@"
       ABSOLUTE
   )
 
