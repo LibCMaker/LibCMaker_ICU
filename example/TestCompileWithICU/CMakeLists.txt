@@ -25,20 +25,25 @@ cmake_minimum_required(VERSION 3.2)
 
 project(LibCMaker_ICU_Compile_Test C CXX)
 
-list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
+set(CMAKE_VERBOSE_MAKEFILE ON)
+set(cmr_PRINT_DEBUG ON)
 
 
 #-----------------------------------------------------------------------
-# Configure for find_package.
+# Configure to find_package()
 #-----------------------------------------------------------------------
 
-# Set CMake's search path for find_package(), find_program(), find_library(),
-# find_file(), and find_path() commands.
+# Set CMake's search path for find_*() commands.
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
 
 if(ANDROID)
   list(APPEND CMAKE_FIND_ROOT_PATH "${CMAKE_INSTALL_PREFIX}")
 endif()
+
+# To use our FindICU.cmake.
+list(APPEND CMAKE_MODULE_PATH
+  "${PROJECT_SOURCE_DIR}/cmake/LibCMaker_ICU/cmake"
+)
 
 
 #-----------------------------------------------------------------------
@@ -51,34 +56,24 @@ set(LIBCMAKER_SRC_DIR "${PROJECT_SOURCE_DIR}/cmake/LibCMaker")
 
 
 #-----------------------------------------------------------------------
-# Set vars for LibCMaker_ICU.
+# Set vars for LibCMaker_ICU
 #-----------------------------------------------------------------------
 
 # Standard CMake vars.
 #set(BUILD_SHARED_LIBS ON)
 
-#set(SKIP_INSTALL_HEADERS ON)
-#set(SKIP_INSTALL_LIBRARIES ON)
-#set(SKIP_INSTALL_ALL ON)
-
-# Set useful vars for lib_cmaker_icu().
-set(cmr_PRINT_DEBUG ON)
-
-set(ICU_lib_VERSION "61.1")
-
-set(ICU_DOWNLOAD_DIR "${PROJECT_BINARY_DIR}")
-set(ICU_UNPACKED_SRC_DIR "${PROJECT_BINARY_DIR}")
-set(ICU_BUILD_DIR "${PROJECT_BINARY_DIR}/build_icu")
+# Vars to lib_cmaker_icu().
+set(ICU_lib_VERSION   "61.1")
+set(ICU_DOWNLOAD_DIR  "${PROJECT_BINARY_DIR}")
+set(ICU_UNPACKED_DIR  "${PROJECT_BINARY_DIR}")
+set(ICU_BUILD_DIR     "${PROJECT_BINARY_DIR}/build_icu")
 
 set(COPY_ICU_CMAKE_BUILD_SCRIPTS ON)
 
-# Library specific vars and options.
 set(ICU_DIR "${CMAKE_INSTALL_PREFIX}")
 set(ENV{ICU_DIR} "${ICU_DIR}")
 
-
-# TODO: build by COMPONENTS in find_package()
-
+# Library specific vars and options.
 
 # Enable cross compiling
 set(ICU_CROSS_COMPILING OFF)
@@ -123,30 +118,25 @@ set(ICU_ENABLE_SAMPLES OFF) # TODO: not released
 
 
 #-----------------------------------------------------------------------
-# Build and install the ICU.
+# Build and install the ICU
 #-----------------------------------------------------------------------
 
 include(${PROJECT_SOURCE_DIR}/cmake/LibCMaker_ICU/lib_cmaker_icu.cmake)
 
-# Make compile, build and install the library at a config CMake phase,
-# generate the CMake config files.
-
-# Install specified library version.
+# Make compile, build and install the library at a config CMake phase.
 lib_cmaker_icu(
-  VERSION           ${ICU_lib_VERSION}
-  DOWNLOAD_DIR      ${ICU_DOWNLOAD_DIR}
-  UNPACKED_SRC_DIR  ${ICU_UNPACKED_SRC_DIR}
-  BUILD_DIR         ${ICU_BUILD_DIR}
+  VERSION       ${ICU_lib_VERSION}
+  DOWNLOAD_DIR  ${ICU_DOWNLOAD_DIR}
+  UNPACKED_DIR  ${ICU_UNPACKED_DIR}
+  BUILD_DIR     ${ICU_BUILD_DIR}
 )
 
 
 #-----------------------------------------------------------------------
-# find_package
+# find_package()
 #-----------------------------------------------------------------------
 
-set(LIBCMAKER_ICU_SRC_DIR "${PROJECT_SOURCE_DIR}/cmake/LibCMaker_ICU")
-# To use our FindICU.cmake
-list(APPEND CMAKE_MODULE_PATH "${LIBCMAKER_ICU_SRC_DIR}/cmake")
+# TODO: build by COMPONENTS in find_package()
 
 # Use newly got library.
 #find_package(ICU 61.1 REQUIRED COMPONENTS ddd CONFIG) # TODO:
@@ -154,28 +144,26 @@ find_package(ICU 61.1 REQUIRED CONFIG)
 
 
 #-----------------------------------------------------------------------
-# Link to the library.
+# Link to the library
 #-----------------------------------------------------------------------
 
-# Build test executables
+# Build test executables.
 
 # To run it on Linux with the shared ICU libs
 # which are built with non standard path in CMAKE_INSTALL_PREFIX use:
 # LD_LIBRARY_PATH="<${CMAKE_INSTALL_PREFIX}>/lib:.:$LD_LIBRARY_PATH" ./LibCMaker_ICU_Compile_Test
 # where <${CMAKE_INSTALL_PREFIX}> is path which is used as value for CMAKE_INSTALL_PREFIX.
 
-# Get an example sources from the ICU sources.
-include(
-  ${PROJECT_SOURCE_DIR}/cmake/LibCMaker_ICU/cmake/modules/cmr_icu_get_download_params.cmake)
-cmr_icu_get_download_params(${ICU_lib_VERSION}
-  lib_URL lib_SHA lib_SRC_DIR_NAME lib_ARCH_FILE_NAME)
-set(lib_SRC_DIR "${ICU_UNPACKED_SRC_DIR}/${lib_SRC_DIR_NAME}-${ICU_lib_VERSION}")
+# Get an example sources from the lib sources.
+set(lib_EXAMPLES_SRC_DIR
+  "${ICU_UNPACKED_DIR}/icu-${ICU_lib_VERSION}/icu/source/samples"
+)
 
 add_executable(${PROJECT_NAME}
-  ${lib_SRC_DIR}/${lib_SRC_DIR_NAME}/source/samples/date/date.c
-  ${lib_SRC_DIR}/${lib_SRC_DIR_NAME}/source/samples/date/uprint.c
-#  ${lib_SRC_DIR}/${lib_SRC_DIR_NAME}/source/samples/cal/cal.c
-#  ${lib_SRC_DIR}/${lib_SRC_DIR_NAME}/source/samples/cal/uprint.c
+  ${lib_EXAMPLES_SRC_DIR}/date/date.c
+  ${lib_EXAMPLES_SRC_DIR}/date/uprint.c
+#  ${lib_EXAMPLES_SRC_DIR}/cal/cal.c
+#  ${lib_EXAMPLES_SRC_DIR}/cal/uprint.c
 )
 set_target_properties(${PROJECT_NAME} PROPERTIES
   C_STANDARD 99

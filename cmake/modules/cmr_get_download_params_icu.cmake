@@ -21,34 +21,29 @@
 #    along with this program. If not, see <http://www.gnu.org/licenses/>.
 # ****************************************************************************
 
-include(cmr_get_version_parts)
-include(cmr_print_fatal_error)
+# Part of "LibCMaker/cmake/modules/cmr_get_download_params.cmake".
 
-function(cmr_icu_get_download_params
-    version
-    out_url out_sha out_src_dir_name out_tar_file_name)
-
-  # http://download.icu-project.org/files/icu4c/61.1/icu4c-61_1-src.tgz
-  set(lib_base_url "http://download.icu-project.org/files/icu4c")
-
-  if(version VERSION_EQUAL "61.1")
-    set(lib_sha
-      "d007f89ae8a2543a53525c74359b65b36412fa84b3349f1400be6dcf409fafef")
-  endif()
-
-  if(NOT DEFINED lib_sha)
-    cmr_print_fatal_error("Library version ${version} is not supported.")
-  endif()
-
+  include(cmr_get_version_parts)
   cmr_get_version_parts(${version} major minor patch tweak)
   set(version_underscore "${major}_${minor}")
 
-  set(lib_src_name "icu4c-${version_underscore}-src")
-  set(lib_tar_file_name "${lib_src_name}.tgz")
-  set(lib_url "${lib_base_url}/${version}/${lib_tar_file_name}")
+  if(version VERSION_EQUAL "61.1")
+    set(arch_file_sha
+      "d007f89ae8a2543a53525c74359b65b36412fa84b3349f1400be6dcf409fafef")
+  endif()
 
-  set(${out_url} "${lib_url}" PARENT_SCOPE)
-  set(${out_sha} "${lib_sha}" PARENT_SCOPE)
-  set(${out_src_dir_name} "icu" PARENT_SCOPE)
-  set(${out_tar_file_name} "${lib_tar_file_name}" PARENT_SCOPE)
-endfunction()
+  # http://download.icu-project.org/files/icu4c/61.1/icu4c-61_1-src.tgz
+  set(base_url "http://download.icu-project.org/files/icu4c")
+  set(src_dir_name    "icu4c-${version_underscore}-src")
+  set(arch_file_name  "${src_dir_name}.tgz")
+  set(unpack_to_dir   "${unpacked_dir}/icu-${version}")
+
+  set(${out_ARCH_SRC_URL}
+    "${base_url}/${version}/${arch_file_name}" PARENT_SCOPE
+  )
+  set(${out_ARCH_DST_FILE}  "${download_dir}/${arch_file_name}" PARENT_SCOPE)
+  set(${out_ARCH_FILE_SHA}  "${arch_file_sha}" PARENT_SCOPE)
+  set(${out_SHA_ALG}        "SHA256" PARENT_SCOPE)
+  set(${out_UNPACK_TO_DIR}  "${unpack_to_dir}" PARENT_SCOPE)
+  set(${out_UNPACKED_SOURCES_DIR} "${unpack_to_dir}/icu" PARENT_SCOPE)
+  set(${out_VERSION_BUILD_DIR} "${build_dir}/icu-${version}" PARENT_SCOPE)
