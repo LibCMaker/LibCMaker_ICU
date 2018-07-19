@@ -60,10 +60,12 @@ if(NOT BUILD_SHARED_LIBS)
 endif()
 
 # Location of the libraries before "make install" is used
+# See also stubdata target properties.
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${LIBDIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${LIBDIR})
 
 # Location of the executables before "make install" is used
+# See also stubdata target properties.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BINDIR})
 
 # RPATH settings

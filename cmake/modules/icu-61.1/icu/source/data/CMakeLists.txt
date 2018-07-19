@@ -244,38 +244,33 @@ endif()
 if(PKGDATA_MODE STREQUAL "dll" OR PKGDATA_MODE STREQUAL "static")
   if(ENABLE_STATIC)
     if(PKGDATA_MODE STREQUAL "dll")
-      add_custom_command(OUTPUT ${ICUDATA_ASM_FILE}
-        COMMAND ${PKGDATA}
-          -e ${ICUDATA_ENTRY_POINT}  # --entrypoint
-          -T ${OUTTMPDIR}  # --tempdir
-          -p ${ICUDATA_NAME}  # --name
-          -m static  # --mode
-          ${PKGDATA_VERSIONING}
-          ${PKGDATA_LIBSTATICNAME}
-          ${PKGDATA_LIST}
-        DEPENDS ${deps_pkgdata} ${PKGDATA_LIST} # ${ICUPKG_INC}
-        COMMENT
-          "Packing data to asm file ${ICUDATA_ASM_FILE}"
-      )
-      add_custom_target(icudata_asm_target DEPENDS ${ICUDATA_ASM_FILE})
+      set(ADD_icudata_asm_target YES)
+      set(asm_PKGDATA_MODE static)
+      set(asm_PKGDATA_LIBNAME ${PKGDATA_LIBSTATICNAME})
     endif()
   endif()
   if(NOT ICUDATA_SOURCE_IS_NATIVE_TARGET)
-    add_custom_command(OUTPUT ${ICUDATA_ASM_FILE}
-      COMMAND ${PKGDATA}
-        -e ${ICUDATA_ENTRY_POINT}  # --entrypoint
-        -T ${OUTTMPDIR}  # --tempdir
-        -p ${ICUDATA_NAME}  # --name
-        -m ${PKGDATA_MODE}  # --mode
-        ${PKGDATA_VERSIONING}
-        ${PKGDATA_LIBNAME}
-        ${PKGDATA_LIST}
-      DEPENDS ${deps_pkgdata} ${PKGDATA_LIST} # ${ICUPKG_INC}
-      COMMENT
-        "Packing data to asm file ${ICUDATA_ASM_FILE}"
-    )
-    add_custom_target(icudata_asm_target DEPENDS ${ICUDATA_ASM_FILE})
+    set(ADD_icudata_asm_target YES)
+    set(asm_PKGDATA_MODE ${PKGDATA_MODE})
+    set(asm_PKGDATA_LIBNAME ${PKGDATA_LIBNAME})
   endif()
+endif()
+
+if(ADD_icudata_asm_target)
+  add_custom_command(OUTPUT ${ICUDATA_ASM_FILE}
+    COMMAND ${PKGDATA}
+      -e ${ICUDATA_ENTRY_POINT}  # --entrypoint
+      -T ${OUTTMPDIR}            # --tempdir
+      -p ${ICUDATA_NAME}         # --name
+      -m ${asm_PKGDATA_MODE}     # --mode
+      ${PKGDATA_VERSIONING}
+      ${asm_PKGDATA_LIBNAME}
+      ${PKGDATA_LIST}
+    DEPENDS ${deps_pkgdata} ${PKGDATA_LIST} # ${ICUPKG_INC}
+    COMMENT
+      "Packing data to the asm file ${ICUDATA_ASM_FILE}"
+  )
+  add_custom_target(icudata_asm_target DEPENDS ${ICUDATA_ASM_FILE})
 endif()
 
 #if(ICUDATA_SOURCE_IS_NATIVE_TARGET)

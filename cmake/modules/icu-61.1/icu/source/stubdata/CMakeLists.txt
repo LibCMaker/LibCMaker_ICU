@@ -10,6 +10,10 @@ add_library(${lib_NAME} "")
 set_target_properties(${lib_NAME} PROPERTIES
   EXPORT_NAME ${DATA_STUBNAME}  # not STUBDATA_STUBNAME !!!
   OUTPUT_NAME ${ICULIBS_DT}     # not ICULIBS_STUBDT !!!
+  
+  ARCHIVE_OUTPUT_DIRECTORY ${LIBDIR}/${STUBDATA_STUBNAME}
+  LIBRARY_OUTPUT_DIRECTORY ${LIBDIR}/${STUBDATA_STUBNAME}
+  RUNTIME_OUTPUT_DIRECTORY ${BINDIR}/${STUBDATA_STUBNAME}
 )
 
 ### Common libraries options
@@ -39,6 +43,11 @@ target_sources(${lib_NAME}
 )
 
 if(PKGDATA_MODE STREQUAL "common")
+  add_custom_command(TARGET ${lib_NAME} POST_BUILD
+    COMMAND
+      ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:${lib_NAME}> ${LIBDIR}
+  )
+
   install(
     TARGETS ${lib_NAME}
     EXPORT "${TARGETS_EXPORT_NAME}"
