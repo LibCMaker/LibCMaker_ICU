@@ -21,7 +21,7 @@
 #    along with this program. If not, see <http://www.gnu.org/licenses/>.
 # ****************************************************************************
 
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.3)
 
 project(LibCMaker_ICU_Compile_Test C CXX)
 
@@ -69,9 +69,6 @@ set(ICU_UNPACKED_DIR  "${PROJECT_BINARY_DIR}")
 set(ICU_BUILD_DIR     "${PROJECT_BINARY_DIR}/build_icu")
 
 set(COPY_ICU_CMAKE_BUILD_SCRIPTS ON)
-
-set(ICU_DIR "${CMAKE_INSTALL_PREFIX}")
-set(ENV{ICU_DIR} "${ICU_DIR}")
 
 # Library specific vars and options.
 
