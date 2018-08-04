@@ -102,11 +102,11 @@ function(lib_cmaker_icu)
   #-----------------------------------------------------------------------
 
   if(BUILD_HOST_TOOLS)
-    cmr_print_message("======== Build tools for cross building ========")
+    cmr_print_status("======== Build tools for cross building ========")
     set(build_mode BUILD BUILD_HOST_TOOLS)
   else()
     if(ICU_CROSS_COMPILING)
-      cmr_print_message(
+      cmr_print_status(
         "======== Cross building with tools in ${ICU_CROSS_BUILDROOT} ========"
       )
     endif()

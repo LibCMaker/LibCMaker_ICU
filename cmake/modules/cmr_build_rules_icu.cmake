@@ -25,7 +25,7 @@
 
   # Copy CMake build scripts.
   if(COPY_ICU_CMAKE_BUILD_SCRIPTS)
-    cmr_print_message("Copy CMake build scripts to unpacked sources.")
+    cmr_print_status("Copy CMake build scripts to unpacked sources.")
     execute_process(
       COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${lib_BASE_DIR}/cmake/modules/icu-${lib_VERSION}
