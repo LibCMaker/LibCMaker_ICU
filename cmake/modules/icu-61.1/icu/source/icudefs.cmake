@@ -198,18 +198,17 @@ set(LDFLAGSCTESTFW " ")
 set(LDFLAGSICUTOOLUTIL " ")
 
 if(MSVC)
-  if(ENABLE_RELEASE)
-    # Make sure that assertions are disabled
-    #list(APPEND CPPFLAGS U_RELEASE=1#M#)
-    list(APPEND CPPFLAGS U_RELEASE=1)
-  endif()
-  if(ENABLE_DEBUG)
-    # Pass debugging flag through
-    #list(APPEND CPPFLAGS _DEBUG=1#M#)
-    list(APPEND CPPFLAGS _DEBUG=1)
-    #set(ICULIBSUFFIX ${ICULIBSUFFIX}d#M#)
-    set(ICULIBSUFFIX ${ICULIBSUFFIX}d)
-  endif()
+  # Make sure that assertions are disabled
+  #list(APPEND CPPFLAGS_RELEASE U_RELEASE=1#M#)
+  list(APPEND CPPFLAGS_RELEASE U_RELEASE=1)
+
+  # Pass debugging flag through
+  #list(APPEND CPPFLAGS_DEBUG _DEBUG=1#M#)
+  list(APPEND CPPFLAGS_DEBUG _DEBUG=1)
+
+  # TODO: Add ICULIBSUFFIX_DEBUG to the all ICU library out file names,
+  # TODO: NOT to the library target name.
+  set(ICULIBSUFFIX_DEBUG $<$<CONFIG:Debug>:"d">)
 
   # -GF pools strings and places them into read-only memory
   # -EHsc enables exception handling

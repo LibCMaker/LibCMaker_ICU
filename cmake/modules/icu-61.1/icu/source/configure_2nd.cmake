@@ -114,34 +114,12 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if(CMAKE_CFG_INTDIR STREQUAL "." AND CMAKE_BUILD_TYPE STREQUAL "Debug"
-    OR CMAKE_CFG_INTDIR STREQUAL "Debug")
-  set(ICU_ENABLE_DEBUG ON)
-  set(ICU_ENABLE_RELEASE OFF)
-elseif(CMAKE_CFG_INTDIR STREQUAL "." AND CMAKE_BUILD_TYPE STREQUAL "Release"
-    OR CMAKE_CFG_INTDIR STREQUAL "Release")
-  set(ICU_ENABLE_DEBUG OFF)
-  set(ICU_ENABLE_RELEASE ON)
-endif()
-
 # Check whether to build debug libraries
-#option(ICU_ENABLE_DEBUG
-#  "Build debug libraries and enable the U_DEBUG define" OFF
-#)
-set(ENABLE_DEBUG 0)
-if(ICU_ENABLE_DEBUG)
-  set(ENABLE_DEBUG 1)
-  list(APPEND CONFIG_CPPFLAGS U_DEBUG=1)
-endif()
-check_message("whether to build debug libraries" ${ICU_ENABLE_DEBUG})
+#check_message("whether to build debug libraries" ${ENABLE_DEBUG})
+list(APPEND CPPFLAGS_DEBUG U_DEBUG=1)
 
 # Check whether to build release libraries
-#option(ICU_ENABLE_RELEASE "Build release libraries" ON)
-set(ENABLE_RELEASE 1)
-if(NOT ICU_ENABLE_RELEASE)
-  set(ENABLE_RELEASE 0)
-endif()
-check_message("whether to build release libraries" ${ICU_ENABLE_RELEASE})
+#check_message("whether to build release libraries" ${ENABLE_RELEASE})
 
 # TODO: see:
 # http://userguide.icu-project.org/layoutengine/paragraph
@@ -261,7 +239,7 @@ check_message("whether to build shared libraries" ${ICU_ENABLE_SHARED})
 check_message("whether to build static libraries" ${ICU_ENABLE_STATIC})
 
 # When building release static library, there might be some optimization flags we can use
-if(ICU_ENABLE_STATIC AND NOT ICU_ENABLE_SHARED AND ICU_ENABLE_RELEASE)
+if(ICU_ENABLE_STATIC AND NOT ICU_ENABLE_SHARED)
   set(_HAVE_STATIC_OPTIMIZATION no)
   if(UNIX AND NOT APPLE AND CMAKE_C_COMPILER_ID STREQUAL "GNU")
     list(APPEND ST_OPT_CPPFLAGS -ffunction-sections -fdata-sections)
@@ -276,8 +254,8 @@ if(ICU_ENABLE_STATIC AND NOT ICU_ENABLE_SHARED AND ICU_ENABLE_RELEASE)
     )
     if(_HAVE_STATIC_OPTIMIZATION)
       #list(APPEND CPPFLAGS ${ST_OPT_CPPFLAGS})
-      list(APPEND CFLAGS ${ST_OPT_CPPFLAGS})
-      set(LDFLAGS "${LDFLAGS} ${ST_OPT_LDFLAGS}")
+      list(APPEND CFLAGS_RELEASE ${ST_OPT_CPPFLAGS})
+      set(LDFLAGS_RELEASE "${LDFLAGS} ${ST_OPT_LDFLAGS}")
     endif()
   endif()
   check_message("whether we can use static library optimization option"
