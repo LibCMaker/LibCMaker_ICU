@@ -26,12 +26,12 @@ set(SO_TARGET_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 # The ICU data external name is usually icudata; the entry point name is
 # the version-dependent name (for no particular reason except it was easier
 # to change the build this way). When building in common mode, the data
-# name is the versioned platform-dependent one. 
+# name is the versioned platform-dependent one.
 set(ICUDATA_DIR ${datarootdir}/${PACKAGE}/${PROJECT_VERSION})
 
 set(ICUDATA_BASENAME_VERSION ${ICUPREFIX}dt${PROJECT_VERSION_MAJOR})
-# The entry point is almost like the basename, but has the lib suffix.  
-set(ICUDATA_ENTRY_POINT ${ICUPREFIX}dt${ICULIBSUFFIXCNAME}${PROJECT_VERSION_MAJOR}) 
+# The entry point is almost like the basename, but has the lib suffix.
+set(ICUDATA_ENTRY_POINT ${ICUPREFIX}dt${ICULIBSUFFIXCNAME}${PROJECT_VERSION_MAJOR})
 #set(ICUDATA_CHAR @ICUDATA_CHAR@)  # set in configure_2nd.cmake
 set(ICUDATA_PLATFORM_NAME ${ICUDATA_BASENAME_VERSION}${ICUDATA_CHAR})
 
@@ -103,10 +103,6 @@ set(LIBDIR ${PROJECT_BINARY_DIR}/lib)
 # Location of the executables before "make install" is used
 set(BINDIR ${PROJECT_BINARY_DIR}/bin)
 
-# overridden by icucross.cmake
-set(TOOLBINDIR ${BINDIR})
-set(TOOLLIBDIR ${LIBDIR})
-
 # Name flexibility for the library naming scheme.  Any modifications should
 # be made in the mh- file for the specific platform.
 set(STUBDATA_STUBNAME stubdata)
@@ -122,6 +118,14 @@ if(WIN32)
   set(DATA_STUBNAME dt)
   set(I18N_STUBNAME in)
 endif()
+
+# overridden by icucross.cmake
+if(MSVC)
+  set(CONFIG_DIR_NAME "/$<CONFIG>")
+endif()
+set(STUBTOOLBINDIR ${BINDIR}/${STUBDATA_STUBNAME}${CONFIG_DIR_NAME})
+set(TOOLBINDIR ${BINDIR}${CONFIG_DIR_NAME})
+set(TOOLLIBDIR ${LIBDIR}${CONFIG_DIR_NAME})
 
 # TODO: HAVE_ICU_LE_HB set in configure_2nd.cmake
 if(HAVE_ICU_LE_HB)
@@ -208,7 +212,7 @@ if(MSVC)
 
   # TODO: Add ICULIBSUFFIX_DEBUG to the all ICU library out file names,
   # TODO: NOT to the library target name.
-  set(ICULIBSUFFIX_DEBUG $<$<CONFIG:Debug>:"d">)
+  set(ICULIBSUFFIX_DEBUG $<$<CONFIG:Debug>:d>)
 
   # -GF pools strings and places them into read-only memory
   # -EHsc enables exception handling
@@ -230,7 +234,7 @@ if(MSVC)
   #set(LDFLAGSCTESTFW "") # Unused for now.
   # Same as layout. Layout and tools probably won't mix.
   set(LDFLAGSICUTOOLUTIL "${LDFLAGSICUTOOLUTIL} -base:\"0x4ac00000\"")
-  
+
   if(WINDOWS_STORE)
     list(APPEND CPPFLAGS U_PLATFORM_HAS_WINUWP_API=1)
   endif()

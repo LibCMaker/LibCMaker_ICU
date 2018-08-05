@@ -111,7 +111,6 @@ set(PKGDATA
   -d ${ICUPKGDATA_OUTDIR}  # --destdir
 )
 
-# TODO: check WIN32 or MSVC, check the out file endings "_dat.obj".
 if(WIN32)
   set(ICUDATA_ASM_FILE ${OUTTMPDIR}/${ICUDATA_PLATFORM_NAME}_dat.obj)
 else()
@@ -129,6 +128,11 @@ endif()
 #############################################################################
 # BUILD RULES
 #############################################################################
+
+if(WIN32)
+  set(SET_PATH "PATH=${STUBTOOLBINDIR};$ENV{PATH}")
+endif()
+
 
 #############################################################################
 # Make the build directories
@@ -177,7 +181,7 @@ if(NOT ICUDATA_SOURCE_ARCHIVE)
   if(ICUDATA_ARCHIVE)
     set(ICUDATA_SOURCE_ARCHIVE ${OUTDIR}/${ICUDATA_SOURCE_ARCHIVE_FILE_NAME})
     add_custom_command(OUTPUT ${ICUDATA_SOURCE_ARCHIVE}
-      COMMAND ${TOOLBINDIR}/icupkg
+      COMMAND ${CMAKE_COMMAND} -E env "${SET_PATH}" ${TOOLBINDIR}/icupkg
         -t${ICUDATA_CHAR}  # --type
         ${ICUDATA_ARCHIVE} ${ICUDATA_SOURCE_ARCHIVE}
       DEPENDS ${deps_icupkg} ${ICUDATA_ARCHIVE} # ${OUTDIR}
@@ -216,7 +220,7 @@ elseif(PKGDATA_MODE STREQUAL "dll" OR PKGDATA_MODE STREQUAL "static")
   if(NOT ICUDATA_SOURCE_IS_NATIVE_TARGET)
     add_custom_command(OUTPUT ${PKGDATA_LIST}
       COMMAND ${CMAKE_COMMAND} -E remove -f ${PKGDATA_LIST}
-      COMMAND ${TOOLBINDIR}/icupkg
+      COMMAND ${CMAKE_COMMAND} -E env "${SET_PATH}" ${TOOLBINDIR}/icupkg
         -d ${BUILDDIR}  # --destdir
         --list
         -x ${extract_pattern}  # --extract
@@ -258,7 +262,7 @@ endif()
 
 if(ADD_icudata_asm_target)
   add_custom_command(OUTPUT ${ICUDATA_ASM_FILE}
-    COMMAND ${PKGDATA}
+    COMMAND ${CMAKE_COMMAND} -E env "${SET_PATH}" ${PKGDATA}
       -e ${ICUDATA_ENTRY_POINT}  # --entrypoint
       -T ${OUTTMPDIR}            # --tempdir
       -p ${ICUDATA_NAME}         # --name
@@ -292,6 +296,7 @@ if(PKGDATA_MODE STREQUAL "dll" OR PKGDATA_MODE STREQUAL "static")
   set_target_properties(${lib_NAME} PROPERTIES
     LINKER_LANGUAGE C
     EXPORT_NAME ${lib_NAME_SUFFIX}
+    OUTPUT_NAME ${lib_NAME}${ICULIBSUFFIX_DEBUG}
   )
 
   ### Common libraries options

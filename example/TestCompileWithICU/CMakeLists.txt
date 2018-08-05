@@ -172,7 +172,16 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 # ICU
 #target_include_directories(${PROJECT_NAME} PRIVATE ${ICU_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} PRIVATE ICU::i18n ICU::uc ICU::data)
+#target_link_libraries(${PROJECT_NAME} PRIVATE ICU::i18n ICU::uc ICU::data)
+
+set(ICU_data ICU::data)
+set(ICU_i18n ICU::i18n)
+if(WIN32)
+  set(ICU_data ICU::dt)
+  set(ICU_i18n ICU::in)
+endif()
+
+target_link_libraries(${PROJECT_NAME} PRIVATE ${ICU_i18n})
 
 # ICU is C++ library.
 #set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)

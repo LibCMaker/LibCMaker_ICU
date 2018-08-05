@@ -25,7 +25,7 @@ function(try_compile_src src_file_name src_file_ext
     "${CMAKE_CURRENT_BINARY_DIR}/try_compile/${file_name}.${src_file_ext}"
   )
   set(bin_dir "${CMAKE_CURRENT_BINARY_DIR}/try_compile/${file_name}")
-  
+
   file(WRITE ${src_file}
   "
       ${header_text}
@@ -35,11 +35,11 @@ function(try_compile_src src_file_name src_file_ext
         return 0;
       }
   ")
-  
+
   if(NOT definitions)
     set(definitions "-DTEMP_TRY_STUB_DEF")
   endif()
-  
+
   if(libraries)
     try_compile(_${out_var} ${bin_dir}
       SOURCES ${src_file}
@@ -54,8 +54,8 @@ function(try_compile_src src_file_name src_file_ext
       OUTPUT_VARIABLE build_OUT
     )
   endif()
-  
-  
+
+
   if(_${out_var})
     set(${out_var} 1 PARENT_SCOPE)
     message(STATUS "Looking for ${out_var} - set to 1 - TRUE")
@@ -375,7 +375,7 @@ if(U_ENABLE_DYLOAD)
   else()
     set(HAVE_DLFCN_H 0)
   endif()
-  
+
   if(NOT HAVE_DLFCN_H OR NOT HAVE_DLOPEN)
     list(APPEND CONFIG_CPPFLAGS HAVE_DLOPEN=0)
   endif()
@@ -502,7 +502,7 @@ check_symbol_exists("nl_langinfo" "langinfo.h" _HAVE_NL_LANGINFO)
 if(_HAVE_NL_LANGINFO)
   set(HAVE_NL_LANGINFO 1)
   set(U_HAVE_NL_LANGINFO 1)
-  
+
   set(NL_LANGINFO_CODESET "unknown")
   foreach(nl_item CODESET _NL_CTYPE_CODESET_NAME)
     try_compile_src("check_nl_langinfo_item" "c"
@@ -517,7 +517,7 @@ if(_HAVE_NL_LANGINFO)
       break()
     endif()
   endforeach()
-  
+
   if(_NL_LANGINFO_CODESET)
     set(U_HAVE_NL_LANGINFO_CODESET 1)
     set(U_NL_LANGINFO_CODESET ${NL_LANGINFO_CODESET})
@@ -527,7 +527,7 @@ if(_HAVE_NL_LANGINFO)
   else()
     list(APPEND CONFIG_CPPFLAGS U_HAVE_NL_LANGINFO_CODESET=0)
   endif()
-  
+
 else()
   set(HAVE_NL_LANGINFO 0)
   set(U_HAVE_NL_LANGINFO 0)
@@ -864,7 +864,7 @@ set(CHECK_UTF16_STRING_RESULT "unknown")
 if(CMAKE_C_STANDARD EQUAL 99 OR CMAKE_C_STANDARD GREATER 10)
   set(U_CHECK_UTF16_STRING 1)
   set(CHECK_UTF16_STRING_RESULT "C only")
-else()  
+else()
   set(U_CHECK_UTF16_STRING 0)
 endif()
 if(NOT CMAKE_CXX_STANDARD EQUAL 98 AND CMAKE_CXX_STANDARD GREATER 10)
@@ -874,7 +874,7 @@ if(NOT CMAKE_CXX_STANDARD EQUAL 98 AND CMAKE_CXX_STANDARD GREATER 10)
   else()
     set(CHECK_UTF16_STRING_RESULT "C++ only")
   endif()
-else()  
+else()
   set(U_CHECK_UTF16_STRING 0)
 endif()
 status_message("for UTF-16 string literal support  ${CHECK_UTF16_STRING_RESULT}")
@@ -1101,7 +1101,7 @@ Creating the file ${HDRFILE}
 ---------------   ${HDRFILE_NAME}
     "
   )
-    
+
   set(HDRFILE_TEXT
     "/* ICU customizations: put these lines at the top of uconfig.h */\n\n"
   )
