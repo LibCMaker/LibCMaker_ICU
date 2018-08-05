@@ -28,9 +28,17 @@
     cmr_print_status("Copy CMake build scripts to unpacked sources.")
     execute_process(
       COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${lib_BASE_DIR}/cmake/modules/icu-${lib_VERSION}
+        ${lib_BASE_DIR}/cmake/modules/icu-${lib_VERSION}/cmake
         ${lib_UNPACK_TO_DIR}/
     )
+    if(MSVC)
+      cmr_print_status("Copy patches to unpacked sources.")
+      execute_process(
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+          ${lib_BASE_DIR}/cmake/modules/icu-${lib_VERSION}/patches/icu/source/tools/pkgdata/pkgdata.cpp
+          ${lib_UNPACK_TO_DIR}/icu/source/tools/pkgdata/
+      )
+    endif()
   endif()
 
   # Configure library.

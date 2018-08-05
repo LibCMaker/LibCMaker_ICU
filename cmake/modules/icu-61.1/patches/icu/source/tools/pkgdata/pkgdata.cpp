@@ -1873,10 +1873,10 @@ static int32_t pkg_createWindowsDLL(const char mode, const char *gencFilePath, U
         );
     }
 
-    result = runCommand(cmd, TRUE);
-    if (result != 0) {
-        fprintf(stderr, "Error creating Windows DLL library. Failed command: %s\n", cmd);
-    }
+//    result = runCommand(cmd, TRUE);
+//    if (result != 0) {
+//        fprintf(stderr, "Error creating Windows DLL library. Failed command: %s\n", cmd);
+//    }
 
     return result;
 }
