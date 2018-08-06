@@ -30,7 +30,7 @@
   if(version VERSION_EQUAL "58.2")
     # This is the last ICU4C release that works on Windows XP and Windows Vista.
     set(arch_file_sha
-      "TODO: sha 58.2")
+      "2b0a4410153a9b20de0e20c7d8b66049a72aef244b53683d0d7521371683da0c")
   endif()
   if(version VERSION_EQUAL "61.1")
     set(arch_file_sha
