@@ -241,10 +241,9 @@ if(MSVC)
 endif()
 
 if(MINGW AND CMAKE_C_COMPILER_ID STREQUAL "GNU")
-  # TODO: we need it?
   ## ICU requires a minimum target of Windows 7, and MinGW does not set this by default.
   ## https://msdn.microsoft.com/en-us/library/aa383745.aspx
-  #list(APPEND CPPFLAGS WINVER=0x0601 _WIN32_WINNT=0x0601)
+  list(APPEND CPPFLAGS WINVER=0x0601 _WIN32_WINNT=0x0601)
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_C_COMPILER_ID STREQUAL "GNU")

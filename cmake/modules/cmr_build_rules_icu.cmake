@@ -31,7 +31,7 @@
         ${lib_BASE_DIR}/cmake/modules/icu-${lib_VERSION}/cmake
         ${lib_UNPACK_TO_DIR}/
     )
-    if(MSVC)
+    if(MSVC OR MINGW)
       cmr_print_status("Copy patches to unpacked sources.")
       execute_process(
         COMMAND ${CMAKE_COMMAND} -E copy_if_different

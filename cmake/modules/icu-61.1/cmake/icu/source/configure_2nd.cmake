@@ -447,7 +447,11 @@ check_message("for mmap" ${HAVE_MMAP})
 # Check to see if genccode can generate simple assembly.
 set(GENCCODE_ASSEMBLY "")
 if(MINGW)
-  set(GENCCODE_ASSEMBLY "-a gcc-mingw64")
+  if( CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(GENCCODE_ASSEMBLY "-a gcc-mingw64")  # 64 bits
+  else()
+    set(GENCCODE_ASSEMBLY "-a gcc-cygwin")  # 32 bits
+  endif()
 elseif(APPLE)
   set(GENCCODE_ASSEMBLY "-a gcc-darwin")
 elseif(UNIX)  # for GCC and clang
@@ -531,6 +535,9 @@ if(_HAVE_NL_LANGINFO)
 else()
   set(HAVE_NL_LANGINFO 0)
   set(U_HAVE_NL_LANGINFO 0)
+  if(MINGW AND CMAKE_C_COMPILER_ID STREQUAL "GNU")
+    list(APPEND CONFIG_CPPFLAGS U_HAVE_NL_LANGINFO_CODESET=0)
+  endif()
 endif()
 
 # Namespace support checks

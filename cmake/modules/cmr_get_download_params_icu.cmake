@@ -27,6 +27,11 @@
   cmr_get_version_parts(${version} major minor patch tweak)
   set(version_underscore "${major}_${minor}")
 
+  if(version VERSION_EQUAL "58.2")
+    # This is the last ICU4C release that works on Windows XP and Windows Vista.
+    set(arch_file_sha
+      "TODO: sha 58.2")
+  endif()
   if(version VERSION_EQUAL "61.1")
     set(arch_file_sha
       "d007f89ae8a2543a53525c74359b65b36412fa84b3349f1400be6dcf409fafef")

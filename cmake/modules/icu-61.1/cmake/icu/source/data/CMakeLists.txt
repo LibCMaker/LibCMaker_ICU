@@ -111,7 +111,7 @@ set(PKGDATA
   -d ${ICUPKGDATA_OUTDIR}  # --destdir
 )
 
-if(WIN32)
+if(MSVC)
   set(ICUDATA_ASM_FILE ${OUTTMPDIR}/${ICUDATA_PLATFORM_NAME}_dat.obj)
 else()
   set(ICUDATA_ASM_FILE ${OUTTMPDIR}/${ICUDATA_PLATFORM_NAME}_dat.S)
@@ -128,11 +128,6 @@ endif()
 #############################################################################
 # BUILD RULES
 #############################################################################
-
-if(WIN32)
-  set(SET_PATH "PATH=${STUBTOOLBINDIR};$ENV{PATH}")
-endif()
-
 
 #############################################################################
 # Make the build directories
@@ -181,7 +176,7 @@ if(NOT ICUDATA_SOURCE_ARCHIVE)
   if(ICUDATA_ARCHIVE)
     set(ICUDATA_SOURCE_ARCHIVE ${OUTDIR}/${ICUDATA_SOURCE_ARCHIVE_FILE_NAME})
     add_custom_command(OUTPUT ${ICUDATA_SOURCE_ARCHIVE}
-      COMMAND ${CMAKE_COMMAND} -E env "${SET_PATH}" ${TOOLBINDIR}/icupkg
+      COMMAND ${TOOLBINDIR}/icupkg
         -t${ICUDATA_CHAR}  # --type
         ${ICUDATA_ARCHIVE} ${ICUDATA_SOURCE_ARCHIVE}
       DEPENDS ${deps_icupkg} ${ICUDATA_ARCHIVE} # ${OUTDIR}
@@ -204,7 +199,7 @@ endif()
 # Unpack the data archive and generate the list of data files
 #############################################################################
 
-if(CMAKE_HOST_WIN32)
+if(CMAKE_HOST_WIN32 AND NOT (CMAKE_GENERATOR STREQUAL "MSYS Makefiles"))
   # protection not needed
   set(extract_pattern *)
 else()
@@ -220,7 +215,7 @@ elseif(PKGDATA_MODE STREQUAL "dll" OR PKGDATA_MODE STREQUAL "static")
   if(NOT ICUDATA_SOURCE_IS_NATIVE_TARGET)
     add_custom_command(OUTPUT ${PKGDATA_LIST}
       COMMAND ${CMAKE_COMMAND} -E remove -f ${PKGDATA_LIST}
-      COMMAND ${CMAKE_COMMAND} -E env "${SET_PATH}" ${TOOLBINDIR}/icupkg
+      COMMAND ${TOOLBINDIR}/icupkg
         -d ${BUILDDIR}  # --destdir
         --list
         -x ${extract_pattern}  # --extract
@@ -262,7 +257,7 @@ endif()
 
 if(ADD_icudata_asm_target)
   add_custom_command(OUTPUT ${ICUDATA_ASM_FILE}
-    COMMAND ${CMAKE_COMMAND} -E env "${SET_PATH}" ${PKGDATA}
+    COMMAND ${PKGDATA}
       -e ${ICUDATA_ENTRY_POINT}  # --entrypoint
       -T ${OUTTMPDIR}            # --tempdir
       -p ${ICUDATA_NAME}         # --name
