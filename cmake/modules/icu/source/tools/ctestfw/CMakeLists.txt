@@ -50,25 +50,7 @@ target_include_directories(${lib_NAME} PRIVATE
 # LIBS = $(LIBICUTOOLUTIL) $(LIBICUI18N) $(LIBICUUC) $(DEFAULT_LIBS)
 target_link_libraries(${lib_NAME} PUBLIC ${ICULIBS_TOOLUTIL})
 
-target_sources(${lib_NAME}
-  PRIVATE
-    ${private_src_DIR}/datamap.cpp
-    ${private_src_DIR}/testdata.cpp
-    ${private_src_DIR}/tstdtmod.cpp
-    ${private_src_DIR}/uperf.cpp
-    ${private_src_DIR}/ctest.c
-    ${private_src_DIR}/ucln_ct.c
-
-  PUBLIC
-    ${public_src_DIR}/unicode/ctest.h
-    ${public_src_DIR}/unicode/datamap.h
-    ${public_src_DIR}/unicode/testdata.h
-    ${public_src_DIR}/unicode/testlog.h
-    ${public_src_DIR}/unicode/testtype.h
-    ${public_src_DIR}/unicode/tstdtmod.h
-    ${public_src_DIR}/unicode/uperf.h
-    ${public_src_DIR}/unicode/utimer.h
-)
+include(${CMAKE_CURRENT_LIST_DIR}/ICU-${PROJECT_VERSION}-source_files.cmake)
 
 install(
   TARGETS ${lib_NAME}

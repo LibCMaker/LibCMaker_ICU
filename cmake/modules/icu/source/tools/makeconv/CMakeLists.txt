@@ -20,17 +20,7 @@ target_include_directories(${exe_NAME} PRIVATE
   ${PROJECT_SOURCE_DIR}/tools/toolutil
 )
 
-target_sources(${exe_NAME}
-  PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/genmbcs.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/makeconv.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/gencnvex.c
-    ${CMAKE_CURRENT_LIST_DIR}/ucnvstat.c
-
-  PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/genmbcs.h
-    ${CMAKE_CURRENT_LIST_DIR}/makeconv.h
-)
+include(${CMAKE_CURRENT_LIST_DIR}/ICU-${PROJECT_VERSION}-source_files.cmake)
 
 install(
   TARGETS ${exe_NAME}

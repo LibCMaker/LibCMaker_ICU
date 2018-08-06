@@ -23,19 +23,7 @@ target_include_directories(${exe_NAME} PRIVATE
   ${PROJECT_SOURCE_DIR}/i18n
 )
 
-target_sources(${exe_NAME}
-  PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/icuinfo.cpp
-)
-
-if(ICU_ENABLE_PLUGINS)
-  # TODO: PLUGIN_OBJECTS = testplug.o
-  # TODO: see source/tools/genrb/CMakeLists.txt with foreach()
-  #target_sources(${exe_NAME}
-  #PRIVATE
-  #  ${CMAKE_CURRENT_LIST_DIR}/testplug.c
-  #)
-endif()
+include(${CMAKE_CURRENT_LIST_DIR}/ICU-${PROJECT_VERSION}-source_files.cmake)
 
 install(
   TARGETS ${exe_NAME}

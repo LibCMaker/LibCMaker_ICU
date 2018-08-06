@@ -26,13 +26,7 @@ target_include_directories(${exe_NAME} PRIVATE
 #LIBS += $(DEFAULT_LIBS) $(LIB_M)
 target_link_libraries(${exe_NAME} PRIVATE ${DEFAULT_LIBS} ${LIB_M})
 
-target_sources(${exe_NAME}
-  PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/escapesrc.cpp
-
-  PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/cptbl.h
-)
+include(${CMAKE_CURRENT_LIST_DIR}/ICU-${PROJECT_VERSION}-source_files.cmake)
 
 install(
   TARGETS ${exe_NAME}

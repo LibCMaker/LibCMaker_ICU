@@ -37,10 +37,7 @@ target_include_directories(${lib_NAME} PRIVATE
   ${PROJECT_SOURCE_DIR}/common
 )
 
-target_sources(${lib_NAME}
-  PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/stubdata.c
-)
+include(${CMAKE_CURRENT_LIST_DIR}/ICU-${PROJECT_VERSION}-source_files.cmake)
 
 if(CMAKE_HOST_WIN32 AND BUILD_SHARED_LIBS AND (MSVC OR MINGW))
   add_custom_command(TARGET ${lib_NAME} POST_BUILD

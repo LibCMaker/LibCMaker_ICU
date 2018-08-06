@@ -28,14 +28,7 @@ target_link_libraries(${exe_NAME} PRIVATE ${ICULIBS_CTESTFW})
 # Common libs must be after the ${ICULIBS_CTESTFW}
 include(${PROJECT_SOURCE_DIR}/common_tools_exe_libs.cmake)
 
-target_sources(${exe_NAME}
-  PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/genres32.c
-    ${CMAKE_CURRENT_LIST_DIR}/gentest.c
-
-  PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/gentest.h
-)
+include(${CMAKE_CURRENT_LIST_DIR}/ICU-${PROJECT_VERSION}-source_files.cmake)
 
 install(
   TARGETS ${exe_NAME}

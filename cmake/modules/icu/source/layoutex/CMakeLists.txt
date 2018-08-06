@@ -59,23 +59,7 @@ endif()
 # LIBS = $(LIBICUUC) $(LIBICULE) $(DEFAULT_LIBS)
 target_link_libraries(${lib_NAME} PUBLIC ${ICULIBS_UC} ${ICULIBS_LE})
 
-target_sources(${lib_NAME}
-  PRIVATE
-    ${private_src_DIR}/LXUtilities.cpp
-    ${private_src_DIR}/ParagraphLayout.cpp
-    ${private_src_DIR}/playout.cpp
-    ${private_src_DIR}/plruns.cpp
-    ${private_src_DIR}/RunArrays.cpp
-
-  PRIVATE
-    ${private_src_DIR}/LXUtilities.h
-
-  PUBLIC
-    ${public_src_DIR}/layout/ParagraphLayout.h
-    ${public_src_DIR}/layout/playout.h
-    ${public_src_DIR}/layout/plruns.h
-    ${public_src_DIR}/layout/RunArrays.h
-)
+include(${CMAKE_CURRENT_LIST_DIR}/ICU-${PROJECT_VERSION}-source_files.cmake)
 
 install(
   DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/layout
