@@ -44,7 +44,7 @@ if(PKGDATA_MODE STREQUAL "common")
 endif()
 if(MSVC)
   set_property(TARGET ${lib_NAME} APPEND PROPERTY
-    # Missed in ICU 58.2
+    # Added in ICU 61.1.
     COMPILE_DEFINITIONS U_PLATFORM_USES_ONLY_WIN32_API=1
   )
   set_property(TARGET ${lib_NAME} APPEND PROPERTY
