@@ -39,7 +39,7 @@ configurations.
 
 For building with CMake copy the CMake files from 'icu-61.1/cmake'
 (and patched files from 'icu-61.1/patches' for MSVC or MinGW)
-to ICU source tree and just run:
+to the ICU source tree and just run:
 
 cd ./icu
 mkdir ./build

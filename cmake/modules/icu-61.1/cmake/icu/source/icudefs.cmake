@@ -209,8 +209,6 @@ if(MSVC)
   #list(APPEND CPPFLAGS_DEBUG _DEBUG=1#M#)
   list(APPEND CPPFLAGS_DEBUG _DEBUG=1)
 
-  # TODO: Add ICULIBSUFFIX_DEBUG to the all ICU library out file names,
-  # TODO: NOT to the library target name.
   set(ICULIBSUFFIX_DEBUG $<$<CONFIG:Debug>:d>)
 
   # -GF pools strings and places them into read-only memory

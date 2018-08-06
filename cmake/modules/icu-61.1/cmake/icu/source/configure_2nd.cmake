@@ -450,7 +450,7 @@ if(MINGW)
   if( CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(GENCCODE_ASSEMBLY "-a gcc-mingw64")  # 64 bits
   else()
-    set(GENCCODE_ASSEMBLY "-a gcc-cygwin")  # 32 bits
+    set(GENCCODE_ASSEMBLY "-a gcc-cygwin")   # 32 bits
   endif()
 elseif(APPLE)
   set(GENCCODE_ASSEMBLY "-a gcc-darwin")
