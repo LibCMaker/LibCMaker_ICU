@@ -24,6 +24,13 @@ include(${CMAKE_CURRENT_LIST_DIR}/gennorm2/CMakeLists.txt)     # exe
 include(${CMAKE_CURRENT_LIST_DIR}/gencfu/CMakeLists.txt)       # exe
 include(${CMAKE_CURRENT_LIST_DIR}/gendict/CMakeLists.txt)      # exe
 
+if(PROJECT_VERSION VERSION_GREATER 58.9)
+  #ifneq (@platform_make_fragment_name@,mh-cygwin-msvc)
+  if(NOT MSVC)
+    include(${CMAKE_CURRENT_LIST_DIR}/escapesrc/CMakeLists.txt)  # exe
+  endif()
+endif()
+
 # Excluded in SUBDIRS in Makefile.in
 #include(${CMAKE_CURRENT_LIST_DIR}/gencolusb/CMakeLists.txt)
 #include(${CMAKE_CURRENT_LIST_DIR}/genren/CMakeLists.txt)
