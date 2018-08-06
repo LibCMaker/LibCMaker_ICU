@@ -19,7 +19,8 @@ add_library(${lib_NAME} "")
 
 set_target_properties(${lib_NAME} PROPERTIES
   EXPORT_NAME ${lib_NAME_SUFFIX}
-  OUTPUT_NAME ${lib_NAME}${ICULIBSUFFIX_DEBUG}
+# TODO: add ${ICULIBSUFFIX_VERSION} for WIN32
+  OUTPUT_NAME ${lib_NAME}${ICULIBSUFFIX_VERSION}${ICULIBSUFFIX_DEBUG}
 )
 
 ### Common libraries options
@@ -43,6 +44,7 @@ if(PKGDATA_MODE STREQUAL "common")
 endif()
 if(MSVC)
   set_property(TARGET ${lib_NAME} APPEND PROPERTY
+    # Added in ICU 61.1.
     COMPILE_DEFINITIONS U_PLATFORM_USES_ONLY_WIN32_API=1
   )
   set_property(TARGET ${lib_NAME} APPEND PROPERTY
@@ -84,7 +86,6 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/bmpset.cpp
     ${private_src_DIR}/brkeng.cpp
     ${private_src_DIR}/brkiter.cpp
-    ${private_src_DIR}/bytesinkutil.cpp
     ${private_src_DIR}/bytestream.cpp
     ${private_src_DIR}/bytestrie.cpp
     ${private_src_DIR}/bytestriebuilder.cpp
@@ -92,18 +93,17 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/caniter.cpp
     ${private_src_DIR}/chariter.cpp
     ${private_src_DIR}/charstr.cpp
-    ${private_src_DIR}/cmemory.cpp
+    ${private_src_DIR}/cmemory.c
     ${private_src_DIR}/cstr.cpp
-    ${private_src_DIR}/cstring.cpp
-    ${private_src_DIR}/cwchar.cpp
+    ${private_src_DIR}/cstring.c
+    ${private_src_DIR}/cwchar.c
     ${private_src_DIR}/dictbe.cpp
     ${private_src_DIR}/dictionarydata.cpp
     ${private_src_DIR}/dtintrv.cpp
-    ${private_src_DIR}/edits.cpp
     ${private_src_DIR}/errorcode.cpp
     ${private_src_DIR}/filteredbrk.cpp
     ${private_src_DIR}/filterednormalizer2.cpp
-    ${private_src_DIR}/icudataver.cpp
+    ${private_src_DIR}/icudataver.c
     ${private_src_DIR}/icuplug.cpp
     ${private_src_DIR}/listformatter.cpp
     ${private_src_DIR}/loadednormalizer2impl.cpp
@@ -113,7 +113,7 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/locdspnm.cpp
     ${private_src_DIR}/locid.cpp
     ${private_src_DIR}/loclikely.cpp
-    ${private_src_DIR}/locmap.cpp
+    ${private_src_DIR}/locmap.c
     ${private_src_DIR}/locresdata.cpp
     ${private_src_DIR}/locutil.cpp
     ${private_src_DIR}/messagepattern.cpp
@@ -124,10 +124,9 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/patternprops.cpp
     ${private_src_DIR}/pluralmap.cpp
     ${private_src_DIR}/propname.cpp
-    ${private_src_DIR}/propsvec.cpp
+    ${private_src_DIR}/propsvec.c
     ${private_src_DIR}/punycode.cpp
     ${private_src_DIR}/putil.cpp
-    ${private_src_DIR}/rbbi_cache.cpp
     ${private_src_DIR}/rbbi.cpp
     ${private_src_DIR}/rbbidata.cpp
     ${private_src_DIR}/rbbinode.cpp
@@ -152,66 +151,66 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/simpleformatter.cpp
     ${private_src_DIR}/stringpiece.cpp
     ${private_src_DIR}/stringtriebuilder.cpp
-    ${private_src_DIR}/uarrsort.cpp
-    ${private_src_DIR}/ubidi_props.cpp
-    ${private_src_DIR}/ubidi.cpp
-    ${private_src_DIR}/ubidiln.cpp
-    ${private_src_DIR}/ubiditransform.cpp
-    ${private_src_DIR}/ubidiwrt.cpp
+    ${private_src_DIR}/uarrsort.c
+    ${private_src_DIR}/ubidi_props.c
+    ${private_src_DIR}/ubidi.c
+    ${private_src_DIR}/ubidiln.c
+    ${private_src_DIR}/ubiditransform.c
+    ${private_src_DIR}/ubidiwrt.c
     ${private_src_DIR}/ubrk.cpp
     ${private_src_DIR}/ucase.cpp
     ${private_src_DIR}/ucasemap_titlecase_brkiter.cpp
     ${private_src_DIR}/ucasemap.cpp
-    ${private_src_DIR}/ucat.cpp
-    ${private_src_DIR}/uchar.cpp
+    ${private_src_DIR}/ucat.c
+    ${private_src_DIR}/uchar.c
     ${private_src_DIR}/ucharstrie.cpp
     ${private_src_DIR}/ucharstriebuilder.cpp
     ${private_src_DIR}/ucharstrieiterator.cpp
     ${private_src_DIR}/uchriter.cpp
     ${private_src_DIR}/ucln_cmn.cpp
-    ${private_src_DIR}/ucmndata.cpp
+    ${private_src_DIR}/ucmndata.c
     ${private_src_DIR}/ucnv_bld.cpp
-    ${private_src_DIR}/ucnv_cb.cpp
-    ${private_src_DIR}/ucnv_cnv.cpp
-    ${private_src_DIR}/ucnv_ct.cpp
-    ${private_src_DIR}/ucnv_err.cpp
+    ${private_src_DIR}/ucnv_cb.c
+    ${private_src_DIR}/ucnv_cnv.c
+    ${private_src_DIR}/ucnv_ct.c
+    ${private_src_DIR}/ucnv_err.c
     ${private_src_DIR}/ucnv_ext.cpp
     ${private_src_DIR}/ucnv_io.cpp
-    ${private_src_DIR}/ucnv_lmb.cpp
-    ${private_src_DIR}/ucnv_set.cpp
-    ${private_src_DIR}/ucnv_u16.cpp
-    ${private_src_DIR}/ucnv_u32.cpp
-    ${private_src_DIR}/ucnv_u7.cpp
-    ${private_src_DIR}/ucnv_u8.cpp
-    ${private_src_DIR}/ucnv.cpp
+    ${private_src_DIR}/ucnv_lmb.c
+    ${private_src_DIR}/ucnv_set.c
+    ${private_src_DIR}/ucnv_u16.c
+    ${private_src_DIR}/ucnv_u32.c
+    ${private_src_DIR}/ucnv_u7.c
+    ${private_src_DIR}/ucnv_u8.c
+    ${private_src_DIR}/ucnv.c
     ${private_src_DIR}/ucnv2022.cpp
     ${private_src_DIR}/ucnvbocu.cpp
-    ${private_src_DIR}/ucnvdisp.cpp
-    ${private_src_DIR}/ucnvhz.cpp
-    ${private_src_DIR}/ucnvisci.cpp
-    ${private_src_DIR}/ucnvlat1.cpp
+    ${private_src_DIR}/ucnvdisp.c
+    ${private_src_DIR}/ucnvhz.c
+    ${private_src_DIR}/ucnvisci.c
+    ${private_src_DIR}/ucnvlat1.c
     ${private_src_DIR}/ucnvmbcs.cpp
-    ${private_src_DIR}/ucnvscsu.cpp
+    ${private_src_DIR}/ucnvscsu.c
     ${private_src_DIR}/ucnvsel.cpp
     ${private_src_DIR}/ucol_swp.cpp
     ${private_src_DIR}/ucurr.cpp
     ${private_src_DIR}/udata.cpp
-    ${private_src_DIR}/udatamem.cpp
-    ${private_src_DIR}/udataswp.cpp
-    ${private_src_DIR}/uenum.cpp
+    ${private_src_DIR}/udatamem.c
+    ${private_src_DIR}/udataswp.c
+    ${private_src_DIR}/uenum.c
     ${private_src_DIR}/uhash_us.cpp
-    ${private_src_DIR}/uhash.cpp
+    ${private_src_DIR}/uhash.c
     ${private_src_DIR}/uidna.cpp
     ${private_src_DIR}/uinit.cpp
-    ${private_src_DIR}/uinvchar.cpp
+    ${private_src_DIR}/uinvchar.c
     ${private_src_DIR}/uiter.cpp
-    ${private_src_DIR}/ulist.cpp
+    ${private_src_DIR}/ulist.c
     ${private_src_DIR}/ulistformatter.cpp
     ${private_src_DIR}/uloc_keytype.cpp
-    ${private_src_DIR}/uloc_tag.cpp
+    ${private_src_DIR}/uloc_tag.c
     ${private_src_DIR}/uloc.cpp
-    ${private_src_DIR}/umapfile.cpp
-    ${private_src_DIR}/umath.cpp
+    ${private_src_DIR}/umapfile.c
+    ${private_src_DIR}/umath.c
     ${private_src_DIR}/umutex.cpp
     ${private_src_DIR}/unames.cpp
     ${private_src_DIR}/unifiedcache.cpp
@@ -231,12 +230,12 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/unormcmp.cpp
     ${private_src_DIR}/uobject.cpp
     ${private_src_DIR}/uprops.cpp
-    ${private_src_DIR}/ures_cnv.cpp
+    ${private_src_DIR}/ures_cnv.c
     ${private_src_DIR}/uresbund.cpp
     ${private_src_DIR}/uresdata.cpp
-    ${private_src_DIR}/usc_impl.cpp
+    ${private_src_DIR}/usc_impl.c
     ${private_src_DIR}/uscript_props.cpp
-    ${private_src_DIR}/uscript.cpp
+    ${private_src_DIR}/uscript.c
     ${private_src_DIR}/uset_props.cpp
     ${private_src_DIR}/uset.cpp
     ${private_src_DIR}/usetiter.cpp
@@ -249,28 +248,27 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/ustrcase_locale.cpp
     ${private_src_DIR}/ustrcase.cpp
     ${private_src_DIR}/ustrenum.cpp
-    ${private_src_DIR}/ustrfmt.cpp
+    ${private_src_DIR}/ustrfmt.c
     ${private_src_DIR}/ustring.cpp
     ${private_src_DIR}/ustrtrns.cpp
     ${private_src_DIR}/utext.cpp
-    ${private_src_DIR}/utf_impl.cpp
+    ${private_src_DIR}/utf_impl.c
     ${private_src_DIR}/util_props.cpp
     ${private_src_DIR}/util.cpp
-    ${private_src_DIR}/utrace.cpp
+    ${private_src_DIR}/utrace.c
     ${private_src_DIR}/utrie.cpp
     ${private_src_DIR}/utrie2_builder.cpp
     ${private_src_DIR}/utrie2.cpp
     ${private_src_DIR}/uts46.cpp
-    ${private_src_DIR}/utypes.cpp
+    ${private_src_DIR}/utypes.c
     ${private_src_DIR}/uvector.cpp
     ${private_src_DIR}/uvectr32.cpp
     ${private_src_DIR}/uvectr64.cpp
-    ${private_src_DIR}/wintz.cpp
+    ${private_src_DIR}/wintz.c
 
   PRIVATE
     ${private_src_DIR}/bmpset.h
     ${private_src_DIR}/brkeng.h
-    ${private_src_DIR}/bytesinkutil.h
     ${private_src_DIR}/charstr.h
     ${private_src_DIR}/cmemory.h
     ${private_src_DIR}/cpputils.h
@@ -298,7 +296,6 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/propsvec.h
     ${private_src_DIR}/punycode.h
     ${private_src_DIR}/putilimp.h
-    ${private_src_DIR}/rbbi_cache.h
     ${private_src_DIR}/rbbidata.h
     ${private_src_DIR}/rbbinode.h
     ${private_src_DIR}/rbbirb.h
@@ -320,7 +317,6 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/ubidi_props.h
     ${private_src_DIR}/ubrkimpl.h
     ${private_src_DIR}/ucase.h
-    ${private_src_DIR}/ucasemap_imp.h
     ${private_src_DIR}/ucase_props_data.h
     ${private_src_DIR}/uchar_props_data.h
     ${private_src_DIR}/ucln_cmn.h
@@ -379,13 +375,10 @@ target_sources(${lib_NAME}
     ${public_src_DIR}/unicode/bytestriebuilder.h
     ${public_src_DIR}/unicode/bytestrie.h
     ${public_src_DIR}/unicode/caniter.h
-    ${public_src_DIR}/unicode/casemap.h
-    ${public_src_DIR}/unicode/char16ptr.h
     ${public_src_DIR}/unicode/chariter.h
     ${public_src_DIR}/unicode/dbbi.h
     ${public_src_DIR}/unicode/docmain.h
     ${public_src_DIR}/unicode/dtintrv.h
-    ${public_src_DIR}/unicode/edits.h
     ${public_src_DIR}/unicode/enumset.h
     ${public_src_DIR}/unicode/errorcode.h
     ${public_src_DIR}/unicode/filteredbrk.h
@@ -411,7 +404,6 @@ target_sources(${lib_NAME}
     ${public_src_DIR}/unicode/simpleformatter.h
     ${public_src_DIR}/unicode/std_string.h
     ${public_src_DIR}/unicode/strenum.h
-    ${public_src_DIR}/unicode/stringoptions.h
     ${public_src_DIR}/unicode/stringpiece.h
     ${public_src_DIR}/unicode/stringtriebuilder.h
     ${public_src_DIR}/unicode/symtable.h

@@ -216,8 +216,11 @@ if(MSVC)
   # -Zc:wchar_t makes wchar_t a native type. Required for C++ ABI compatibility.
   # -D_CRT_SECURE_NO_DEPRECATE is needed to quiet warnings about using standard C functions.
   # -utf-8 set source file encoding to utf-8.
-  list(APPEND CFLAGS -GF -utf-8)
-  list(APPEND CXXFLAGS -GF -EHsc -Zc:wchar_t -utf-8)
+  if(PROJECT_VERSION VERSION_GREATER 58.9)
+    set(UTF8_VS_KEY -utf-8)
+  endif()
+  list(APPEND CFLAGS -GF ${UTF8_VS_KEY})
+  list(APPEND CXXFLAGS -GF -EHsc -Zc:wchar_t ${UTF8_VS_KEY})
   list(APPEND CPPFLAGS _CRT_SECURE_NO_DEPRECATE)
   #list(APPEND DEFS WIN32)
 
@@ -238,9 +241,11 @@ if(MSVC)
 endif()
 
 if(MINGW AND CMAKE_C_COMPILER_ID STREQUAL "GNU")
-  ## ICU requires a minimum target of Windows 7, and MinGW does not set this by default.
-  ## https://msdn.microsoft.com/en-us/library/aa383745.aspx
-  list(APPEND CPPFLAGS WINVER=0x0601 _WIN32_WINNT=0x0601)
+  if(PROJECT_VERSION VERSION_GREATER 58.9)
+    ## ICU requires a minimum target of Windows 7, and MinGW does not set this by default.
+    ## https://msdn.microsoft.com/en-us/library/aa383745.aspx
+    list(APPEND CPPFLAGS WINVER=0x0601 _WIN32_WINNT=0x0601)
+  endif()
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_C_COMPILER_ID STREQUAL "GNU")

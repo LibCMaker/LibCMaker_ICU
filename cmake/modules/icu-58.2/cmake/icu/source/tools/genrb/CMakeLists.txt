@@ -6,7 +6,7 @@ foreach(exe_NAME "genrb" "derb")
   if(exe_NAME STREQUAL "derb" AND NOT ICU_ENABLE_ICUIO)
     continue()
   endif()
-  
+
   add_executable(${exe_NAME} "")
 
   ### Common executables options
@@ -21,7 +21,7 @@ foreach(exe_NAME "genrb" "derb")
       UNISTR_FROM_CHAR_EXPLICIT=explicit
       UNISTR_FROM_STRING_EXPLICIT=explicit
   )
-  
+
   ### Include directories
   # PRIVATE
   target_include_directories(${exe_NAME} PRIVATE
@@ -31,7 +31,7 @@ foreach(exe_NAME "genrb" "derb")
     ${PROJECT_SOURCE_DIR}/tools/toolutil
     ${PROJECT_SOURCE_DIR}/io
   )
-  
+
   ### Link libraries
   # PRIVATE
   if(exe_NAME STREQUAL "derb")
@@ -56,7 +56,7 @@ foreach(exe_NAME "genrb" "derb")
         ${CMAKE_CURRENT_LIST_DIR}/read.c
         ${CMAKE_CURRENT_LIST_DIR}/rle.c
         ${CMAKE_CURRENT_LIST_DIR}/ustr.c
-    
+
       PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/errmsg.h
         ${CMAKE_CURRENT_LIST_DIR}/genrb.h

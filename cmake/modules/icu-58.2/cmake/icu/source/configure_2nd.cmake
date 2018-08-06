@@ -394,6 +394,23 @@ endif()
 # Check whether to use the evil rpath or not
 option(ICU_ENABLE_RPATH "Use rpath when linking" OFF)
 
+if(CMAKE_CXX_STANDARD LESS 11)
+  try_compile_src("if_include_string_works" "cpp"
+    "#include <string>"
+    ""
+    ""
+    ""
+    _HEADER_STDSTRING
+  )
+  if(_HEADER_STDSTRING)
+    set(U_HAVE_STD_STRING 1)
+  else()
+    set(U_HAVE_STD_STRING 0)
+    list(APPEND CONFIG_CPPFLAGS U_HAVE_STD_STRING=0)
+  endif()
+  check_message("if #include <string> works" ${_HEADER_STDSTRING})
+endif()
+
 try_compile_src("if_include_atomic_works" "cpp"
   "#include <atomic>"
   ""

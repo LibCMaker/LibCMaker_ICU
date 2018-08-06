@@ -52,16 +52,16 @@ target_link_libraries(${lib_NAME} PUBLIC ${ICULIBS_I18N})
 target_sources(${lib_NAME}
   PRIVATE
     ${private_src_DIR}/locbund.cpp
-    ${private_src_DIR}/sprintf.cpp
-    ${private_src_DIR}/sscanf.cpp
+    ${private_src_DIR}/sprintf.c
+    ${private_src_DIR}/sscanf.c
     ${private_src_DIR}/ucln_io.cpp
-    ${private_src_DIR}/ufile.cpp
-    ${private_src_DIR}/ufmt_cmn.cpp
+    ${private_src_DIR}/ufile.c
+    ${private_src_DIR}/ufmt_cmn.c
     ${private_src_DIR}/uprintf.cpp
-    ${private_src_DIR}/uprntf_p.cpp
-    ${private_src_DIR}/uscanf_p.cpp
-    ${private_src_DIR}/uscanf.cpp
-    ${private_src_DIR}/ustdio.cpp
+    ${private_src_DIR}/uprntf_p.c
+    ${private_src_DIR}/uscanf.c
+    ${private_src_DIR}/uscanf_p.c
+    ${private_src_DIR}/ustdio.c
     ${private_src_DIR}/ustream.cpp
 
   PRIVATE

@@ -115,24 +115,18 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/datefmt.cpp
     ${private_src_DIR}/dayperiodrules.cpp
     ${private_src_DIR}/dcfmtsym.cpp
-    ${private_src_DIR}/decContext.cpp
+    ${private_src_DIR}/decContext.c
     ${private_src_DIR}/decfmtst.cpp
     ${private_src_DIR}/decimalformatpattern.cpp
     ${private_src_DIR}/decimfmt.cpp
     ${private_src_DIR}/decimfmtimpl.cpp
-    ${private_src_DIR}/decNumber.cpp
+    ${private_src_DIR}/decNumber.c
     ${private_src_DIR}/digitaffix.cpp
     ${private_src_DIR}/digitaffixesandpadding.cpp
     ${private_src_DIR}/digitformatter.cpp
     ${private_src_DIR}/digitgrouping.cpp
     ${private_src_DIR}/digitinterval.cpp
     ${private_src_DIR}/digitlst.cpp
-    ${private_src_DIR}/double-conversion-bignum-dtoa.cpp
-    ${private_src_DIR}/double-conversion-bignum.cpp
-    ${private_src_DIR}/double-conversion-cached-powers.cpp
-    ${private_src_DIR}/double-conversion-diy-fp.cpp
-    ${private_src_DIR}/double-conversion-fast-dtoa.cpp
-    ${private_src_DIR}/double-conversion.cpp
     ${private_src_DIR}/dtfmtsym.cpp
     ${private_src_DIR}/dtitvfmt.cpp
     ${private_src_DIR}/dtitvinf.cpp
@@ -163,25 +157,7 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/nfrule.cpp
     ${private_src_DIR}/nfsubs.cpp
     ${private_src_DIR}/nortrans.cpp
-    ${private_src_DIR}/nounit.cpp
     ${private_src_DIR}/nultrans.cpp
-    ${private_src_DIR}/number_affixutils.cpp
-    ${private_src_DIR}/number_compact.cpp
-    ${private_src_DIR}/number_decimalquantity.cpp
-    ${private_src_DIR}/number_decimfmtprops.cpp
-    ${private_src_DIR}/number_fluent.cpp
-    ${private_src_DIR}/number_formatimpl.cpp
-    ${private_src_DIR}/number_grouping.cpp
-    ${private_src_DIR}/number_integerwidth.cpp
-    ${private_src_DIR}/number_longnames.cpp
-    ${private_src_DIR}/number_modifiers.cpp
-    ${private_src_DIR}/number_notation.cpp
-    ${private_src_DIR}/number_padding.cpp
-    ${private_src_DIR}/number_patternmodifier.cpp
-    ${private_src_DIR}/number_patternstring.cpp
-    ${private_src_DIR}/number_rounding.cpp
-    ${private_src_DIR}/number_scientific.cpp
-    ${private_src_DIR}/number_stringbuilder.cpp
     ${private_src_DIR}/numfmt.cpp
     ${private_src_DIR}/numsys.cpp
     ${private_src_DIR}/olsontz.cpp
@@ -253,7 +229,7 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/udatpg.cpp
     ${private_src_DIR}/ufieldpositer.cpp
     ${private_src_DIR}/uitercollationiterator.cpp
-    ${private_src_DIR}/ulocdata.cpp
+    ${private_src_DIR}/ulocdata.c
     ${private_src_DIR}/umsg.cpp
     ${private_src_DIR}/unesctrn.cpp
     ${private_src_DIR}/uni2name.cpp
@@ -270,7 +246,7 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/uspoof.cpp
     ${private_src_DIR}/utf16collationiterator.cpp
     ${private_src_DIR}/utf8collationiterator.cpp
-    ${private_src_DIR}/utmscale.cpp
+    ${private_src_DIR}/utmscale.c
     ${private_src_DIR}/utrans.cpp
     ${private_src_DIR}/valueformatter.cpp
     ${private_src_DIR}/visibledigits.cpp
@@ -340,14 +316,6 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/digitgrouping.h
     ${private_src_DIR}/digitinterval.h
     ${private_src_DIR}/digitlst.h
-    ${private_src_DIR}/double-conversion-bignum-dtoa.h
-    ${private_src_DIR}/double-conversion-bignum.h
-    ${private_src_DIR}/double-conversion-cached-powers.h
-    ${private_src_DIR}/double-conversion-diy-fp.h
-    ${private_src_DIR}/double-conversion-fast-dtoa.h
-    ${private_src_DIR}/double-conversion.h
-    ${private_src_DIR}/double-conversion-ieee.h
-    ${private_src_DIR}/double-conversion-utils.h
     ${private_src_DIR}/dt_impl.h
     ${private_src_DIR}/dtitv_impl.h
     ${private_src_DIR}/dtptngen_impl.h
@@ -370,20 +338,6 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/nfsubs.h
     ${private_src_DIR}/nortrans.h
     ${private_src_DIR}/nultrans.h
-    ${private_src_DIR}/number_affixutils.h
-    ${private_src_DIR}/number_compact.h
-    ${private_src_DIR}/number_decimalquantity.h
-    ${private_src_DIR}/number_decimfmtprops.h
-    ${private_src_DIR}/number_formatimpl.h
-    ${private_src_DIR}/number_longnames.h
-    ${private_src_DIR}/number_modifiers.h
-    ${private_src_DIR}/number_patternmodifier.h
-    ${private_src_DIR}/number_patternstring.h
-    ${private_src_DIR}/number_roundingutils.h
-    ${private_src_DIR}/number_scientific.h
-    ${private_src_DIR}/number_stringbuilder.h
-    ${private_src_DIR}/number_types.h
-    ${private_src_DIR}/number_utils.h
     ${private_src_DIR}/numsys_impl.h
     ${private_src_DIR}/olsontz.h
     ${private_src_DIR}/persncal.h
@@ -476,8 +430,6 @@ target_sources(${lib_NAME}
     ${public_src_DIR}/unicode/measunit.h
     ${public_src_DIR}/unicode/measure.h
     ${public_src_DIR}/unicode/msgfmt.h
-    ${public_src_DIR}/unicode/nounit.h
-    ${public_src_DIR}/unicode/numberformatter.h
     ${public_src_DIR}/unicode/numfmt.h
     ${public_src_DIR}/unicode/numsys.h
     ${public_src_DIR}/unicode/plurfmt.h

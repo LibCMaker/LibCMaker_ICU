@@ -39,7 +39,7 @@ target_include_directories(${lib_NAME} PRIVATE
 
 target_sources(${lib_NAME}
   PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/stubdata.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/stubdata.c
 )
 
 if(CMAKE_HOST_WIN32 AND BUILD_SHARED_LIBS AND (MSVC OR MINGW))

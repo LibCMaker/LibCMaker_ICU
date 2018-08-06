@@ -51,12 +51,12 @@ target_sources(${lib_NAME}
     ${CMAKE_CURRENT_LIST_DIR}/collationinfo.cpp
     ${CMAKE_CURRENT_LIST_DIR}/dbgutil.cpp
     ${CMAKE_CURRENT_LIST_DIR}/denseranges.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/filestrm.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/filestrm.c
     ${CMAKE_CURRENT_LIST_DIR}/filetools.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/flagparser.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/flagparser.c
     ${CMAKE_CURRENT_LIST_DIR}/package.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/pkg_genc.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/pkg_gencmn.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/pkg_genc.c
+    ${CMAKE_CURRENT_LIST_DIR}/pkg_gencmn.c
     ${CMAKE_CURRENT_LIST_DIR}/pkg_icu.cpp
     ${CMAKE_CURRENT_LIST_DIR}/pkgitems.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ppucd.cpp
@@ -64,13 +64,13 @@ target_sources(${lib_NAME}
     ${CMAKE_CURRENT_LIST_DIR}/toolutil.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ucbuf.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ucln_tu.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/ucm.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/ucmstate.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/ucm.c
+    ${CMAKE_CURRENT_LIST_DIR}/ucmstate.c
     ${CMAKE_CURRENT_LIST_DIR}/udbgutil.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/unewdata.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/uoptions.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/uparse.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/writesrc.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/unewdata.c
+    ${CMAKE_CURRENT_LIST_DIR}/uoptions.c
+    ${CMAKE_CURRENT_LIST_DIR}/uparse.c
+    ${CMAKE_CURRENT_LIST_DIR}/writesrc.c
     ${CMAKE_CURRENT_LIST_DIR}/xmlparser.cpp
 
   PRIVATE
