@@ -116,6 +116,7 @@ function(lib_cmaker_icu)
   cmr_lib_cmaker_main(
     NAME          ${cmr_lib_NAME}
     VERSION       ${arg_VERSION}
+    LANGUAGES     C CXX ASM
     BASE_DIR      ${lcm_${cmr_lib_NAME}_SRC_DIR}
     DOWNLOAD_DIR  ${arg_DOWNLOAD_DIR}
     UNPACKED_DIR  ${arg_UNPACKED_DIR}
