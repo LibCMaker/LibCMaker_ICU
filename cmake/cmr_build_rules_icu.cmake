@@ -21,21 +21,21 @@
 #    along with this program. If not, see <http://www.gnu.org/licenses/>.
 # ****************************************************************************
 
-# Part of "LibCMaker/cmake/modules/cmr_build_rules.cmake".
+# Part of "LibCMaker/cmake/cmr_build_rules.cmake".
 
   # Copy CMake build scripts.
   if(COPY_ICU_CMAKE_BUILD_SCRIPTS)
     cmr_print_status("Copy CMake build scripts to unpacked sources.")
     execute_process(
       COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${lib_BASE_DIR}/cmake/modules/icu
+        ${lib_BASE_DIR}/patch/icu
         ${lib_UNPACK_TO_DIR}/icu/
     )
     if(MSVC OR MINGW)
       cmr_print_status("Copy patches to unpacked sources.")
       execute_process(
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-          ${lib_BASE_DIR}/cmake/modules/patches/icu-${lib_VERSION}/icu/source/tools/pkgdata/pkgdata.cpp
+          ${lib_BASE_DIR}/patch/patches/icu-${lib_VERSION}/icu/source/tools/pkgdata/pkgdata.cpp
           ${lib_UNPACK_TO_DIR}/icu/source/tools/pkgdata/pkgdata.cpp
       )
     endif()

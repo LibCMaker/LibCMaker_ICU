@@ -40,35 +40,36 @@ if(ANDROID)
   list(APPEND CMAKE_FIND_ROOT_PATH "${CMAKE_INSTALL_PREFIX}")
 endif()
 
-# To use our FindICU.cmake.
-list(APPEND CMAKE_MODULE_PATH
-  "${PROJECT_SOURCE_DIR}/cmake/LibCMaker_ICU/cmake"
-)
-
 
 #-----------------------------------------------------------------------
 # Set path to LibCMaker root
 #-----------------------------------------------------------------------
 
-set(LIBCMAKER_SRC_DIR "${PROJECT_SOURCE_DIR}/cmake/LibCMaker")
+set(LibCMaker_DIR "${CMAKE_CURRENT_LIST_DIR}/cmake/LibCMaker")
 # Uncomment it if need functions from LibCMaker
-#list(APPEND CMAKE_MODULE_PATH "${LIBCMAKER_SRC_DIR}/cmake/modules")
+#list(APPEND CMAKE_MODULE_PATH "${LibCMaker_DIR}/cmake")
 
 
 #-----------------------------------------------------------------------
 # Set common vars to LibCMaker_ICU
 #-----------------------------------------------------------------------
 
-# Standard CMake vars.
-#set(BUILD_SHARED_LIBS ON)
+set(ICU_lib_NAME     "ICU")
+set(ICU_lib_VERSION  "61.1")
+set(ICU_lib_DIR      "${CMAKE_CURRENT_LIST_DIR}/cmake/LibCMaker_ICU")
 
-# Vars to lib_cmaker_icu().
-set(ICU_lib_VERSION   "61.1")
-set(ICU_DOWNLOAD_DIR  "${PROJECT_BINARY_DIR}")
+# To use below for sample sources.
+set(cmr_UNPACKED_DIR ${CMAKE_CURRENT_BINARY_DIR}/download/unpacked)
+
+# To use our FindICU.cmake.
+list(APPEND CMAKE_MODULE_PATH "${ICU_lib_DIR}/cmake/modules")
 
 set(COPY_ICU_CMAKE_BUILD_SCRIPTS ON)
 
-# Library specific vars and options.
+
+#-----------------------------------------------------------------------
+# Library specific common vars and options
+#-----------------------------------------------------------------------
 
 # Compile with strict compiler options
 set(ICU_ENABLE_STRICT ON)
@@ -108,16 +109,17 @@ set(ICU_ENABLE_SAMPLES OFF) # TODO: not released
 # Set vars to LibCMaker_ICU to build host tools
 #-----------------------------------------------------------------------
 
-# Standard CMake vars.
 set(BUILD_SHARED_LIBS OFF)  # Always static for host tools.
 
-# Vars to lib_cmaker_icu().
-set(ICU_UNPACKED_DIR  "${PROJECT_BINARY_DIR}/host_tools_sources")
-set(ICU_BUILD_DIR     "${PROJECT_BINARY_DIR}/build_icu_host_tools")
+set(cmr_UNPACKED_DIR  "${PROJECT_BINARY_DIR}/host_tools_sources")
+set(cmr_BUILD_DIR     "${PROJECT_BINARY_DIR}/build_icu_host_tools")
 
 set(BUILD_HOST_TOOLS ON)
 
-# Library specific vars and options.
+
+#-----------------------------------------------------------------------
+# Library specific vars and options to build host tools
+#-----------------------------------------------------------------------
 
 # Enable cross compiling
 set(ICU_CROSS_COMPILING OFF)
@@ -132,77 +134,26 @@ set(ICU_ENABLE_TOOLS ON)
 
 
 #-----------------------------------------------------------------------
-# Build the ICU tools
+# Build and find the ICU host tools
 #-----------------------------------------------------------------------
 
-include(${PROJECT_SOURCE_DIR}/cmake/LibCMaker_ICU/lib_cmaker_icu.cmake)
+# TODO: build by COMPONENTS in find_package()
 
-# Make compile and build the library's host tools at a config CMake phase.
-lib_cmaker_icu(
-  VERSION       ${ICU_lib_VERSION}
-  DOWNLOAD_DIR  ${ICU_DOWNLOAD_DIR}
-  UNPACKED_DIR  ${ICU_UNPACKED_DIR}
-  BUILD_DIR     ${ICU_BUILD_DIR}
+# Make build and install the library's host tools at a config CMake phase.
+include(${LibCMaker_DIR}/cmake/cmr_find_package.cmake)
+cmr_find_package(
+  LibCMaker_DIR   ${LibCMaker_DIR}
+  NAME            ${ICU_lib_NAME}
+  VERSION         ${ICU_lib_VERSION}
+#  COMPONENTS      TODO
+  LIB_DIR         ${ICU_lib_DIR}
+  REQUIRED
+  CONFIG
+  CUSTOM_LOGIC_FILE
+    ${ICU_lib_DIR}/cmake/cmr_find_package_icu_host_tools_custom.cmake
 )
 
-
-#-----------------------------------------------------------------------
-# Check programs existing
-#-----------------------------------------------------------------------
-
-set(ICU_CROSS_BUILDROOT
-  "${PROJECT_BINARY_DIR}/build_icu_host_tools/icu-61.1/source"
-)
-
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/derb)
-  message(FATAL_ERROR "The program 'derb' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/escapesrc)
-  message(FATAL_ERROR "The program 'escapesrc' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/genbrk)
-  message(FATAL_ERROR "The program 'genbrk' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/genccode)
-  message(FATAL_ERROR "The program 'genccode' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/gencfu)
-  message(FATAL_ERROR "The program 'gencfu' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/gencmn)
-  message(FATAL_ERROR "The program 'gencmn' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/gencnval)
-  message(FATAL_ERROR "The program 'gencnval' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/gendict)
-  message(FATAL_ERROR "The program 'gendict' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/gennorm2)
-  message(FATAL_ERROR "The program 'gennorm2' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/genrb)
-  message(FATAL_ERROR "The program 'genrb' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/gensprep)
-  message(FATAL_ERROR "The program 'gensprep' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/gentest)
-  message(FATAL_ERROR "The program 'gentest' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/icuinfo)
-  message(FATAL_ERROR "The program 'icuinfo' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/icupkg)
-  message(FATAL_ERROR "The program 'icupkg' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/makeconv)
-  message(FATAL_ERROR "The program 'makeconv' is not found.")
-endif()
-if(NOT EXISTS ${ICU_CROSS_BUILDROOT}/bin/pkgdata)
-  message(FATAL_ERROR "The program 'pkgdata' is not found.")
-endif()
-
+# ICU_CROSS_BUILDROOT set in cmr_find_package_icu_host_tools_custom.cmake.
 
 #-----------------------------------------------------------------------
 # Stub target
