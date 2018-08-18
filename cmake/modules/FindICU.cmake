@@ -129,7 +129,10 @@ function(_ICU_FIND)
   list(APPEND icu_include_suffixes "include")
   find_path(ICU_INCLUDE_DIR
             NAMES "unicode/utypes.h"
-            HINTS ${icu_roots}
+#            HINTS ${icu_roots}
+            NO_CMAKE_ENVIRONMENT_PATH
+            NO_SYSTEM_ENVIRONMENT_PATH
+            NO_CMAKE_SYSTEM_PATH
             PATH_SUFFIXES ${icu_include_suffixes}
             DOC "ICU include directory")
   set(ICU_INCLUDE_DIR "${ICU_INCLUDE_DIR}" PARENT_SCOPE)
@@ -162,7 +165,10 @@ function(_ICU_FIND)
     set(cache_var "ICU_${program_upcase}_EXECUTABLE")
     set(program_var "ICU_${program_upcase}_EXECUTABLE")
     find_program("${cache_var}" "${program}"
-      HINTS ${icu_roots}
+#      HINTS ${icu_roots}
+      NO_CMAKE_ENVIRONMENT_PATH
+      NO_SYSTEM_ENVIRONMENT_PATH
+      NO_CMAKE_SYSTEM_PATH
       PATH_SUFFIXES ${icu_binary_suffixes}
       DOC "ICU ${program} executable")
     mark_as_advanced(cache_var)
@@ -226,14 +232,21 @@ function(_ICU_FIND)
       list(APPEND component_debug_libnames ${static_component_debug_libnames})
     endif()
     find_library("${component_cache_release}" ${component_libnames}
-      HINTS ${icu_roots}
+#      HINTS ${icu_roots}
+      NO_CMAKE_ENVIRONMENT_PATH
+      NO_SYSTEM_ENVIRONMENT_PATH
+      NO_CMAKE_SYSTEM_PATH
       PATH_SUFFIXES ${icu_library_suffixes}
       DOC "ICU ${component} library (release)")
     find_library("${component_cache_debug}" ${component_debug_libnames}
-      HINTS ${icu_roots}
+#      HINTS ${icu_roots}
+      NO_CMAKE_ENVIRONMENT_PATH
+      NO_SYSTEM_ENVIRONMENT_PATH
+      NO_CMAKE_SYSTEM_PATH
       PATH_SUFFIXES ${icu_library_suffixes}
       DOC "ICU ${component} library (debug)")
-    include(${CMAKE_CURRENT_LIST_DIR}/SelectLibraryConfigurations.cmake)
+#    include(${CMAKE_CURRENT_LIST_DIR}/SelectLibraryConfigurations.cmake)
+    include(SelectLibraryConfigurations)
     select_library_configurations(ICU_${component_upcase})
     mark_as_advanced("${component_cache_release}" "${component_cache_debug}")
     if(${component_cache})
@@ -280,7 +293,10 @@ function(_ICU_FIND)
     set(cache_var "ICU_${data_upcase}")
     set(data_var "ICU_${data_upcase}")
     find_file("${cache_var}" "${data}"
-      HINTS ${icu_roots}
+#      HINTS ${icu_roots}
+      NO_CMAKE_ENVIRONMENT_PATH
+      NO_SYSTEM_ENVIRONMENT_PATH
+      NO_CMAKE_SYSTEM_PATH
       PATH_SUFFIXES ${icu_data_suffixes}
       DOC "ICU ${data} data file")
     mark_as_advanced(cache_var)
@@ -313,7 +329,8 @@ endfunction()
 
 _ICU_FIND()
 
-include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
+#include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
+include(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(ICU
                                   FOUND_VAR ICU_FOUND
                                   REQUIRED_VARS ICU_INCLUDE_DIR
