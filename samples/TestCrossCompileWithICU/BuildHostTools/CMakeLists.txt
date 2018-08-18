@@ -54,9 +54,10 @@ set(LibCMaker_DIR "${CMAKE_CURRENT_LIST_DIR}/cmake/LibCMaker")
 # Set common vars to LibCMaker_ICU
 #-----------------------------------------------------------------------
 
-set(ICU_lib_NAME     "ICU")
-set(ICU_lib_VERSION  "61.1")
-set(ICU_lib_DIR      "${CMAKE_CURRENT_LIST_DIR}/cmake/LibCMaker_ICU")
+set(ICU_lib_NAME        "ICU")
+set(ICU_lib_VERSION     "61.1")
+set(ICU_lib_COMPONENTS  i18n uc data)
+set(ICU_lib_DIR         "${CMAKE_CURRENT_LIST_DIR}/cmake/LibCMaker_ICU")
 
 # To use below for sample sources.
 set(cmr_UNPACKED_DIR ${CMAKE_CURRENT_BINARY_DIR}/download/unpacked)
@@ -137,6 +138,9 @@ set(ICU_ENABLE_TOOLS ON)
 # Build and find the ICU host tools
 #-----------------------------------------------------------------------
 
+# Used by ICU.
+find_package(Threads REQUIRED)
+
 # TODO: build by COMPONENTS in find_package()
 
 # Make build and install the library's host tools at a config CMake phase.
@@ -145,10 +149,9 @@ cmr_find_package(
   LibCMaker_DIR   ${LibCMaker_DIR}
   NAME            ${ICU_lib_NAME}
   VERSION         ${ICU_lib_VERSION}
-#  COMPONENTS      TODO
+  COMPONENTS      ${ICU_lib_COMPONENTS}
   LIB_DIR         ${ICU_lib_DIR}
   REQUIRED
-  CONFIG
   CUSTOM_LOGIC_FILE
     ${ICU_lib_DIR}/cmake/cmr_find_package_icu_host_tools_custom.cmake
 )
