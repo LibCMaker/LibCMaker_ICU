@@ -80,6 +80,8 @@ if(NOT ICU_CROSS_BUILDROOT)
 endif()
 # Compile with strict compiler options
 set(ICU_ENABLE_STRICT ON)
+# Compile with 'm' library.
+set(ICU_USE_LIB_M ON)
 # Enable auto cleanup of libraries
 set(ICU_ENABLE_AUTO_CLEANUP OFF)
 # Enable draft APIs (and internal APIs)
@@ -94,6 +96,8 @@ set(ICU_ENABLE_PLUGINS OFF)
 set(ICU_DISABLE_DYLOAD OFF)
 # Use rpath when linking
 set(ICU_ENABLE_RPATH OFF)
+# Compile with 'wxs' or 'w' libraries.
+set(ICU_USE_WCS_OR_W_LIB ON)
 # Build ICU extras
 set(ICU_ENABLE_EXTRAS OFF) # TODO: not released
 # Build ICU's icuio library
@@ -169,4 +173,4 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 target_link_libraries(${PROJECT_NAME} PRIVATE ICU::i18n ICU::uc ICU::data)
 
 # ICU is C++ library.
-#set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)

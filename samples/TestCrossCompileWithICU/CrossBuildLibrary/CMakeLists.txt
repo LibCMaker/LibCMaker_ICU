@@ -74,6 +74,8 @@ set(COPY_ICU_CMAKE_BUILD_SCRIPTS ON)
 
 # Compile with strict compiler options
 set(ICU_ENABLE_STRICT ON)
+# Compile with 'm' library.
+set(ICU_USE_LIB_M ON)
 # Enable auto cleanup of libraries
 set(ICU_ENABLE_AUTO_CLEANUP OFF)
 # Enable draft APIs (and internal APIs)
@@ -88,6 +90,8 @@ set(ICU_ENABLE_PLUGINS OFF)
 set(ICU_DISABLE_DYLOAD OFF)
 # Use rpath when linking
 set(ICU_ENABLE_RPATH OFF)
+# Compile with 'wxs' or 'w' libraries.
+set(ICU_USE_WCS_OR_W_LIB ON)
 
 # Build ICU's icuio library
 set(ICU_ENABLE_ICUIO ON)
