@@ -23,7 +23,8 @@
 
 cmake_minimum_required(VERSION 3.4)
 
-project(LibCMaker_ICU_Compile_Test C CXX)
+# FindThreads work in environments, where only CXX is enabled, since CMake 3.4.
+project(LibCMaker_ICU_Compile_Test_HostTools CXX)
 
 option(CMAKE_VERBOSE_MAKEFILE "CMAKE_VERBOSE_MAKEFILE" OFF)
 option(cmr_PRINT_DEBUG "cmr_PRINT_DEBUG" OFF)
@@ -45,11 +46,23 @@ endif()
 # Set path vars
 #-----------------------------------------------------------------------
 
-set(LibCMaker_LIB_DIR "${CMAKE_CURRENT_LIST_DIR}/libs")
+if(NOT LibCMaker_LIB_DIR)
+  message(FATAL_ERROR
+    "Please set LibCMaker_LIB_DIR with path to LibCMaker's libraries directory.")
+endif()
+if(NOT HOST_TOOLS_STAMP_FILE_NAME)
+  message(FATAL_ERROR
+    "Please set HOST_TOOLS_STAMP_FILE_NAME with name of stamp file.")
+endif()
+
+set(LibCMaker_DIR "${LibCMaker_LIB_DIR}/LibCMaker")
 set(cmr_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}")
 
 if(NOT cmr_UNPACKED_DIR)
-  set(cmr_UNPACKED_DIR "${PROJECT_BINARY_DIR}/download/unpacked")
+  set(cmr_UNPACKED_DIR "${PROJECT_BINARY_DIR}/download/unpacked_host_tools")
+endif()
+if(NOT cmr_BUILD_DIR)
+  set(cmr_BUILD_DIR "${PROJECT_BINARY_DIR}")
 endif()
 
 
@@ -66,58 +79,19 @@ include(cmr_find_package)
 # Download, configure, build, install and find the required libraries
 #-----------------------------------------------------------------------
 
-option(BUILD_TESTING "Build the testing tree." OFF)
-if(BUILD_TESTING)
-  enable_testing()
-  include(${LibCMaker_LIB_DIR}/LibCMaker_GoogleTest/cmr_build_googletest.cmake)
-endif()
+# Used by ICU.
+find_package(Threads REQUIRED)
 
-include(${LibCMaker_LIB_DIR}/LibCMaker_ICU/cmr_build_icu.cmake)
+include(${LibCMaker_LIB_DIR}/LibCMaker_ICU/cmr_build_icu_host_tools.cmake)
 
 
 #-----------------------------------------------------------------------
-# Build the executable of the example
+# Fake target
 #-----------------------------------------------------------------------
 
-# To run it on Linux with the shared ICU libs
-# which are built with non standard path in CMAKE_INSTALL_PREFIX use:
-# LD_LIBRARY_PATH="<${CMAKE_INSTALL_PREFIX}>/lib:.:$LD_LIBRARY_PATH" ./LibCMaker_ICU_Compile_Test
-# where <${CMAKE_INSTALL_PREFIX}> is path which is used as value for CMAKE_INSTALL_PREFIX.
-
-# Get an example sources from the lib sources.
-set(lib_EXAMPLES_SRC_DIR
-  "${cmr_UNPACKED_DIR}/icu-${ICU_lib_VERSION}/icu/source/samples"
+add_custom_target(${PROJECT_NAME} ALL
+  COMMAND ${CMAKE_COMMAND} -E touch
+    "${PROJECT_BINARY_DIR}/${HOST_TOOLS_STAMP_FILE_NAME}"
+  COMMAND ${CMAKE_COMMAND} -E echo
+    "Host tools are ready."
 )
-
-add_executable(${PROJECT_NAME}
-  ${lib_EXAMPLES_SRC_DIR}/date/date.c
-  ${lib_EXAMPLES_SRC_DIR}/date/uprint.c
-#  ${lib_EXAMPLES_SRC_DIR}/cal/cal.c
-#  ${lib_EXAMPLES_SRC_DIR}/cal/uprint.c
-)
-set_target_properties(${PROJECT_NAME} PROPERTIES
-  C_STANDARD 99
-  CXX_STANDARD 11
-)
-
-
-#-----------------------------------------------------------------------
-# Link to the libraries
-#-----------------------------------------------------------------------
-
-#CPPFLAGS += -I$(top_srcdir)/common -I$(top_srcdir)/i18n
-#LIBS = $(LIBICUI18N) $(LIBICUUC) $(DEFAULT_LIBS) $(LIB_M)
-
-# ICU
-target_link_libraries(${PROJECT_NAME} PRIVATE ICU::i18n ICU::uc ICU::data)
-
-# ICU is C++ library.
-set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
-
-
-#-----------------------------------------------------------------------
-# Testing
-#-----------------------------------------------------------------------
-
-set(test_src_DIR "${CMAKE_CURRENT_LIST_DIR}/src")
-add_subdirectory(test)

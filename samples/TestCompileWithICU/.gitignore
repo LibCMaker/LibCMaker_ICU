@@ -37,4 +37,4 @@ build/
 
 # For testing
 build*/
-cmake/
+libs/
