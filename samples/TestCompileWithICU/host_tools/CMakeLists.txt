@@ -86,7 +86,7 @@ include(${LibCMaker_LIB_DIR}/LibCMaker_ICU/cmr_build_icu_host_tools.cmake)
 
 
 #-----------------------------------------------------------------------
-# Fake target
+# Stub target
 #-----------------------------------------------------------------------
 
 add_custom_target(${PROJECT_NAME} ALL
