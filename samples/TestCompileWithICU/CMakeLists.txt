@@ -79,10 +79,11 @@ include(${LibCMaker_LIB_DIR}/LibCMaker_ICU/cmr_build_icu.cmake)
 # Build the executable of the example
 #-----------------------------------------------------------------------
 
-# To run it on Linux with the shared ICU libs
+# To run it on Linux with the shared libs
 # which are built with non standard path in CMAKE_INSTALL_PREFIX use:
 # LD_LIBRARY_PATH="<${CMAKE_INSTALL_PREFIX}>/lib:.:$LD_LIBRARY_PATH" ./LibCMaker_ICU_Compile_Test
-# where <${CMAKE_INSTALL_PREFIX}> is path which is used as value for CMAKE_INSTALL_PREFIX.
+# where <${CMAKE_INSTALL_PREFIX}> is path which is used
+# as value for CMAKE_INSTALL_PREFIX.
 
 # Get an example sources from the lib sources.
 set(lib_EXAMPLES_SRC_DIR
@@ -96,8 +97,8 @@ add_executable(${PROJECT_NAME}
 #  ${lib_EXAMPLES_SRC_DIR}/cal/uprint.c
 )
 set_target_properties(${PROJECT_NAME} PROPERTIES
-  C_STANDARD 99
   CXX_STANDARD 11
+  C_STANDARD 99
 )
 
 

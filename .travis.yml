@@ -8,6 +8,7 @@ env:
   global:
     # NOTE: LibCMaker lib name.
     # NOTE: See below the lib deps in 'before_install' for every target OS.
+    # NOTE: See below 'after_success' with LibCMaker lib triggers.
     - cmr_LIB_NAME=ICU
     - cmr_BUILD_TESTING=ON
 
