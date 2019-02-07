@@ -325,6 +325,24 @@ jobs:
         - cmr_ANDROID_NATIVE_API_LEVEL=21
 
 
+# Trigger the building of the dependent libs.
+    - stage: Trigger downstreams
+      name: "Trigger downstreams"
+
+      before_install:
+        - gem install travis
+        - mkdir ${cmr_SAMPLE_LIB_DIR}
+        - git clone https://github.com/LibCMaker/LibCMaker.git ${cmr_SAMPLE_LIB_DIR}/LibCMaker
+
+      before_script:
+        - cd ${cmr_SAMPLE_LIB_DIR}/LibCMaker/ci/travis
+
+      script:
+        # NOTE: LibCMaker lib triggers.
+        - ./trigger.sh LibCMaker LibCMaker_Boost            master $TRAVIS_ACCESS_TOKEN
+        - ./trigger.sh LibCMaker LibCMaker_SQLite3          master $TRAVIS_ACCESS_TOKEN
+
+
 notifications:
   email:
     recipients:
