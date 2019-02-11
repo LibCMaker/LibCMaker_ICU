@@ -56,7 +56,6 @@ set(COPY_ICU_CMAKE_BUILD_SCRIPTS ON)
 # Library specific vars and options
 #-----------------------------------------------------------------------
 
-# Enable cross compiling
 option(ICU_CROSS_COMPILING "Enable cross compiling" OFF)
 # Specify an absolute path to the build directory of an ICU built for the current platform
 set(ICU_CROSS_BUILDROOT "")

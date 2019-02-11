@@ -62,8 +62,7 @@ set(BUILD_HOST_TOOLS ON)
 # Library specific vars and options
 #-----------------------------------------------------------------------
 
-# Enable cross compiling
-set(ICU_CROSS_COMPILING OFF)
+option(ICU_CROSS_COMPILING "Enable cross compiling" OFF)
 # Specify an absolute path to the build directory of an ICU built for the current platform
 set(ICU_CROSS_BUILDROOT "")
 # Compile with strict compiler options
@@ -81,9 +80,11 @@ set(ICU_ENABLE_TRACING OFF)
 # Enable plugins
 set(ICU_ENABLE_PLUGINS OFF)
 # Disable dynamic loading
-set(ICU_DISABLE_DYLOAD OFF)
+set(ICU_DISABLE_DYLOAD ON)
 # Use rpath when linking
 set(ICU_ENABLE_RPATH OFF)
+# Compile with 'wxs' or 'w' libraries.
+set(ICU_USE_WCS_OR_W_LIB OFF)
 # Build ICU extras
 set(ICU_ENABLE_EXTRAS OFF) # TODO: not released
 # Build ICU's icuio library
