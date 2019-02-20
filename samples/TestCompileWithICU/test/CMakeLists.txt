@@ -38,6 +38,9 @@ if(BUILD_TESTING)
   )
 
   # ICU
+  if(NOT BUILD_SHARED_LIBS)
+    target_compile_definitions(${test_NAME} PRIVATE U_STATIC_IMPLEMENTATION)
+  endif()
   target_link_libraries(${test_NAME} PRIVATE ICU::i18n ICU::uc ICU::data)
   # ICU is C++ library.
   set_target_properties(${test_NAME} PROPERTIES LINKER_LANGUAGE CXX)
