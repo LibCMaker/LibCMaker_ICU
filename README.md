@@ -1,3 +1,5 @@
 # LibCMaker_ICU
 
-LibCMaker_ICU is a CMake build scripts for build ICU library with CMake.
+The CMake build scripts for the ICU library building with CMake.
+
+See the main repository [LibCMaker](https://github.com/LibCMaker/LibCMaker) for the documentation, known build issues, build status, etc.
