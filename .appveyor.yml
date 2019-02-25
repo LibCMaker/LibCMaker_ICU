@@ -43,7 +43,7 @@ environment:
       cmr_GEN_PLATFORM: -DCMAKE_GENERATOR_PLATFORM="x64"
       cmr_GEN_TOOLSET:  -DCMAKE_GENERATOR_TOOLSET="v141,host=x64"
       cmr_CONFIG_TYPES: -DCMAKE_CONFIGURATION_TYPES=${cmr_CMAKE_BUILD_TYPE}
-      cmr_STD_LIBS: " "
+      cmr_STD_LIBS:
       cmr_BUILD_SHARED_LIBS: ON
 
     # MSVC 2017, x64, static
@@ -52,7 +52,7 @@ environment:
       cmr_GEN_PLATFORM: -DCMAKE_GENERATOR_PLATFORM="x64"
       cmr_GEN_TOOLSET:  -DCMAKE_GENERATOR_TOOLSET="v141,host=x64"
       cmr_CONFIG_TYPES: -DCMAKE_CONFIGURATION_TYPES=${cmr_CMAKE_BUILD_TYPE}
-      cmr_STD_LIBS: " "
+      cmr_STD_LIBS:
       cmr_BUILD_SHARED_LIBS: OFF
 
     # MSVC 2017, x32, shared
@@ -61,7 +61,7 @@ environment:
       cmr_GEN_PLATFORM: -DCMAKE_GENERATOR_PLATFORM="Win32"
       cmr_GEN_TOOLSET:  -DCMAKE_GENERATOR_TOOLSET="v141,host=x64"
       cmr_CONFIG_TYPES: -DCMAKE_CONFIGURATION_TYPES=${cmr_CMAKE_BUILD_TYPE}
-      cmr_STD_LIBS: " "
+      cmr_STD_LIBS:
       cmr_BUILD_SHARED_LIBS: ON
 
     # MSVC 2017, x32, static
@@ -70,7 +70,7 @@ environment:
       cmr_GEN_PLATFORM: -DCMAKE_GENERATOR_PLATFORM="Win32"
       cmr_GEN_TOOLSET:  -DCMAKE_GENERATOR_TOOLSET="v141,host=x64"
       cmr_CONFIG_TYPES: -DCMAKE_CONFIGURATION_TYPES=${cmr_CMAKE_BUILD_TYPE}
-      cmr_STD_LIBS: " "
+      cmr_STD_LIBS:
       cmr_BUILD_SHARED_LIBS: OFF
 
     # MSVC 2017, WinXP, shared
@@ -79,7 +79,7 @@ environment:
       cmr_GEN_PLATFORM: -DCMAKE_GENERATOR_PLATFORM="Win32"
       cmr_GEN_TOOLSET:  -DCMAKE_GENERATOR_TOOLSET="v141_xp,host=x64"
       cmr_CONFIG_TYPES: -DCMAKE_CONFIGURATION_TYPES=${cmr_CMAKE_BUILD_TYPE}
-      cmr_STD_LIBS: " "
+      cmr_STD_LIBS:
       cmr_BUILD_SHARED_LIBS: ON
 
     # MSVC 2017, WinXP, static
@@ -88,7 +88,7 @@ environment:
       cmr_GEN_PLATFORM: -DCMAKE_GENERATOR_PLATFORM="Win32"
       cmr_GEN_TOOLSET:  -DCMAKE_GENERATOR_TOOLSET="v141_xp,host=x64"
       cmr_CONFIG_TYPES: -DCMAKE_CONFIGURATION_TYPES=${cmr_CMAKE_BUILD_TYPE}
-      cmr_STD_LIBS: " "
+      cmr_STD_LIBS:
       cmr_BUILD_SHARED_LIBS: OFF
 
     # MSVC 2015, x64, shared
@@ -97,7 +97,7 @@ environment:
       cmr_GEN_PLATFORM: -DCMAKE_GENERATOR_PLATFORM="x64"
       cmr_GEN_TOOLSET:  -DCMAKE_GENERATOR_TOOLSET="v140,host=x64"
       cmr_CONFIG_TYPES: -DCMAKE_CONFIGURATION_TYPES=${cmr_CMAKE_BUILD_TYPE}
-      cmr_STD_LIBS: " "
+      cmr_STD_LIBS:
       cmr_BUILD_SHARED_LIBS: ON
 
     # MSVC 2015, x64, static
@@ -106,16 +106,16 @@ environment:
       cmr_GEN_PLATFORM: -DCMAKE_GENERATOR_PLATFORM="x64"
       cmr_GEN_TOOLSET:  -DCMAKE_GENERATOR_TOOLSET="v140,host=x64"
       cmr_CONFIG_TYPES: -DCMAKE_CONFIGURATION_TYPES=${cmr_CMAKE_BUILD_TYPE}
-      cmr_STD_LIBS: " "
+      cmr_STD_LIBS:
       cmr_BUILD_SHARED_LIBS: OFF
 
     # MinGW-w64, x64, shared
     - cmr_MinGW_w64_x64_shared: ON
       cmr_GENERATOR:    -DCMAKE_GENERATOR="MinGW Makefiles"
-      cmr_GEN_PLATFORM: " "
-      cmr_GEN_TOOLSET:  " "
-      cmr_CONFIG_TYPES: " "
-      cmr_STD_LIBS: " "
+      cmr_GEN_PLATFORM:
+      cmr_GEN_TOOLSET:
+      cmr_CONFIG_TYPES:
+      cmr_STD_LIBS:
       cmr_BUILD_SHARED_LIBS: ON
       cmr_CMAKE_VERSION: 3.4
       cmr_CMAKE_RELEASE: cmake-${cmr_CMAKE_VERSION}.0-win32-x86
@@ -125,9 +125,9 @@ environment:
     # MinGW-w64, x64, static
     - cmr_MinGW_w64_x64_static: ON
       cmr_GENERATOR:    -DCMAKE_GENERATOR="MinGW Makefiles"
-      cmr_GEN_PLATFORM: " "
-      cmr_GEN_TOOLSET:  " "
-      cmr_CONFIG_TYPES: " "
+      cmr_GEN_PLATFORM:
+      cmr_GEN_TOOLSET:
+      cmr_CONFIG_TYPES:
       cmr_STD_LIBS: -DCMAKE_C_STANDARD_LIBRARIES="-static" -DCMAKE_CXX_STANDARD_LIBRARIES="-static"
       cmr_BUILD_SHARED_LIBS: OFF
       cmr_CMAKE_VERSION: 3.4
@@ -194,7 +194,7 @@ build_script:
   - cd %cmr_BUILD_DIR%
 
   # NOTE: LibCMaker lib CMake keys.
-  - "%cmr_CMAKE_CMD% %cmr_SAMPLE_DIR%
+  - \%cmr_CMAKE_CMD% %cmr_SAMPLE_DIR%
       -Dcmr_BUILD_MULTIPROC_CNT=%cmr_JOBS_CNT%
       -Dcmr_PRINT_DEBUG=ON
       -DCMAKE_VERBOSE_MAKEFILE=ON
@@ -205,11 +205,11 @@ build_script:
       -Dcmr_UNPACKED_DIR=%cmr_DOWNLOAD_DIR%\\unpacked
         -DCMAKE_BUILD_TYPE=%cmr_CMAKE_BUILD_TYPE%
         -DBUILD_SHARED_LIBS=%cmr_BUILD_SHARED_LIBS%
-      %cmr_GENERATOR% %cmr_GEN_PLATFORM% %cmr_GEN_TOOLSET% %cmr_CONFIG_TYPES% %cmr_STD_LIBS%"
+      %cmr_GENERATOR% %cmr_GEN_PLATFORM% %cmr_GEN_TOOLSET% %cmr_CONFIG_TYPES% %cmr_STD_LIBS%
 
-  - "%cmr_CMAKE_CMD% --build . --config %cmr_CMAKE_BUILD_TYPE%"
+  - \%cmr_CMAKE_CMD% --build . --config %cmr_CMAKE_BUILD_TYPE%
 
-  - "%cmr_CTEST_CMD% --output-on-failure --build-config %cmr_CMAKE_BUILD_TYPE%"
+  - \%cmr_CTEST_CMD% --output-on-failure --build-config %cmr_CMAKE_BUILD_TYPE%
 
 
 # === Notifications ===
