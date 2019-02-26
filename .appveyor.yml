@@ -27,8 +27,6 @@ environment:
     cmr_CMAKE_VERSION: 3.11
     cmr_CMAKE_RELEASE: cmake-${cmr_CMAKE_VERSION}.0-win64-x64
     cmr_CMAKE_DIR: ${cmr_INSTALL_DIR}\${cmr_CMAKE_RELEASE}
-#    cmr_CMAKE_CMD: ${cmr_CMAKE_DIR}\bin\cmake
-#    cmr_CTEST_CMD: ${cmr_CMAKE_DIR}\bin\ctest
     cmr_CMAKE_CMD: cmake
     cmr_CTEST_CMD: ctest
 
