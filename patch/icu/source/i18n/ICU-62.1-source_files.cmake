@@ -363,8 +363,6 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/shareddateformatsymbols.h
     ${private_src_DIR}/sharednumberformat.h
     ${private_src_DIR}/sharedpluralrules.h
-    ${private_src_DIR}/significantdigitinterval.h
-    ${private_src_DIR}/smallintformatter.h
     ${private_src_DIR}/smpdtfst.h
     ${private_src_DIR}/standardplural.h
     ${private_src_DIR}/strmatch.h
@@ -388,8 +386,6 @@ target_sources(${lib_NAME}
     ${private_src_DIR}/usrchimp.h
     ${private_src_DIR}/utf16collationiterator.h
     ${private_src_DIR}/utf8collationiterator.h
-    ${private_src_DIR}/valueformatter.h
-    ${private_src_DIR}/visibledigits.h
     ${private_src_DIR}/vzone.h
     ${private_src_DIR}/windtfmt.h
     ${private_src_DIR}/winnmfmt.h
