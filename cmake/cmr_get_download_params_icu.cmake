@@ -40,6 +40,10 @@
     set(arch_file_sha
       "3dd9868d666350dda66a6e305eecde9d479fb70b30d5b55d78a1deffb97d5aa3")
   endif()
+  if(version VERSION_EQUAL "63.1")
+    set(arch_file_sha
+      "05c490b69454fce5860b7e8e2821231674af0a11d7ef2febea9a32512998cb9d")
+  endif()
 
   # http://download.icu-project.org/files/icu4c/61.1/icu4c-61_1-src.tgz
   set(base_url "http://download.icu-project.org/files/icu4c")
