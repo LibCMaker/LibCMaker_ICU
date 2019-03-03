@@ -31,14 +31,27 @@
         ${lib_BASE_DIR}/patch/icu
         ${lib_UNPACK_TO_DIR}/icu/
     )
-    if(MSVC OR MINGW)
-      cmr_print_status("Copy patches to unpacked sources.")
+    if(EXISTS ${lib_BASE_DIR}/patch/patches/icu-${lib_VERSION}/icu/source/tools/pkgdata/pkgdata.cpp
+        AND (MSVC OR MINGW) AND NOT MSYS)
+      cmr_print_status("Copy patched 'pkgdata.cpp' to unpacked sources.")
       execute_process(
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
           ${lib_BASE_DIR}/patch/patches/icu-${lib_VERSION}/icu/source/tools/pkgdata/pkgdata.cpp
           ${lib_UNPACK_TO_DIR}/icu/source/tools/pkgdata/pkgdata.cpp
       )
     endif()
+  endif()
+
+  if(lib_VERSION VERSION_EQUAL 63.1)  # Patches from ICU 63.2
+    cmr_print_status("Copy patches from ICU 63.2 to unpacked sources.")
+    execute_process(
+      COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${lib_BASE_DIR}/patch/patches/icu-${lib_VERSION}/icu/source/common/umutex.h
+        ${lib_UNPACK_TO_DIR}/icu/source/common/umutex.h
+      COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${lib_BASE_DIR}/patch/patches/icu-${lib_VERSION}/icu/source/i18n/unicode/numberrangeformatter.h
+        ${lib_UNPACK_TO_DIR}/icu/source/i18n/unicode/numberrangeformatter.h
+    )
   endif()
 
   # Configure library.
