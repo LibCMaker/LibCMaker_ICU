@@ -55,7 +55,6 @@ endif()
 set(BUILD_SHARED_LIBS OFF)  # Always static for host tools.
 
 set(COPY_ICU_CMAKE_BUILD_SCRIPTS ON)
-set(BUILD_HOST_TOOLS ON)
 
 
 #-----------------------------------------------------------------------
@@ -120,6 +119,7 @@ cmr_find_package(
   REQUIRED
   CUSTOM_LOGIC_FILE
     ${ICU_lib_DIR}/cmake/cmr_find_package_icu_host_tools_custom.cmake
+  BUILD_HOST_TOOLS
 )
 
 if(DEFINED tmp_BUILD_SHARED_LIBS)
