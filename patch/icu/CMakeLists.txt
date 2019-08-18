@@ -1,4 +1,4 @@
-# Copyright (c) 2018-2019, NikitaFeodonit. All rights reserved.
+# Copyright (c) 2018, NikitaFeodonit. All rights reserved.
 #
 ## ICU build file for CMake build tools
 
