@@ -14,6 +14,7 @@ set(mandir      ${CMAKE_INSTALL_MANDIR})
 set(sysconfdir  ${CMAKE_INSTALL_SYSCONFDIR})
 
 if(MSVC AND "${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
+  set(bindir "bin64")
   set(libdir "lib64")
 endif()
 
