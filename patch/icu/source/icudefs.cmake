@@ -209,6 +209,11 @@ if(MSVC)
   #list(APPEND CPPFLAGS_DEBUG _DEBUG=1#M#)
   list(APPEND CPPFLAGS_DEBUG _DEBUG=1)
 
+  if(NOT BUILD_SHARED_LIBS)
+    # Static library prefix
+    set(STATIC_PREFIX "s")
+  endif()
+  set(ICULIBSUFFIX_VERSION ${PROJECT_VERSION_MAJOR})
   set(ICULIBSUFFIX_DEBUG $<$<CONFIG:Debug>:d>)
 
   # -GF pools strings and places them into read-only memory
