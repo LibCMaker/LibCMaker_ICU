@@ -45,6 +45,7 @@ environment:
       cmr_CONFIG_TYPES: -DCMAKE_CONFIGURATION_TYPES:STRING=${cmr_CMAKE_BUILD_TYPE}
       cmr_STD_LIBS:
       cmr_BUILD_SHARED_LIBS: ON
+      PATH: ${cmr_INSTALL_DIR}\bin64;%PATH%
 
     # MSVC 2017, x64, static
     - cmr_MSVC_2017_x64_static: ON
@@ -99,6 +100,7 @@ environment:
       cmr_CONFIG_TYPES: -DCMAKE_CONFIGURATION_TYPES:STRING=${cmr_CMAKE_BUILD_TYPE}
       cmr_STD_LIBS:
       cmr_BUILD_SHARED_LIBS: ON
+      PATH: ${cmr_INSTALL_DIR}\bin64;%PATH%
 
     # MSVC 2015, x64, static
     - cmr_MSVC_2015_x64_static: ON
