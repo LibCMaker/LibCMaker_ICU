@@ -13,6 +13,10 @@ set(includedir  ${CMAKE_INSTALL_INCLUDEDIR})
 set(mandir      ${CMAKE_INSTALL_MANDIR})
 set(sysconfdir  ${CMAKE_INSTALL_SYSCONFDIR})
 
+if(MSVC AND "${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
+  set(libdir "lib64")
+endif()
+
 # Package information
 set(PACKAGE_ICU_DESCRIPTION "International Components for Unicode")
 set(PACKAGE_ICU_URL "http://icu-project.org")
