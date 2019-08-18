@@ -176,6 +176,7 @@ clone_folder: c:\projects\LibCMaker_${cmr_LIB_NAME}
 
 before_build:
   - ver
+  - set PATH
   - ps: $env:PATH = $env:PATH -replace "C:\\Program Files\\Git\\usr\\bin",""
   - xcopy %cmr_SAMPLE_SRC_DIR% %cmr_SAMPLE_DIR% /e /i /h /q
   - xcopy %cmr_REPO_DIR% %cmr_SAMPLE_LIB_DIR%\LibCMaker_%cmr_LIB_NAME% /e /i /h /q
