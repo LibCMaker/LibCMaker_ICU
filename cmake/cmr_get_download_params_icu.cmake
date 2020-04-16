@@ -24,8 +24,7 @@
 # Part of "LibCMaker/cmake/cmr_get_download_params.cmake".
 
   include(cmr_get_version_parts)
-  cmr_get_version_parts(${version} major minor patch tweak)
-  set(version_underscore "${major}_${minor}")
+  cmr_get_version_parts(${version} ver_major ver_minor ver_patch ver_tweak)
 
   if(version VERSION_EQUAL "58.2")
     # This is the last ICU4C release that works on Windows XP and Windows Vista.
@@ -45,14 +44,15 @@
       "05c490b69454fce5860b7e8e2821231674af0a11d7ef2febea9a32512998cb9d")
   endif()
 
-  # http://download.icu-project.org/files/icu4c/61.1/icu4c-61_1-src.tgz
-  set(base_url "http://download.icu-project.org/files/icu4c")
-  set(src_dir_name    "icu4c-${version_underscore}-src")
+  # -old- http://download.icu-project.org/files/icu4c/61.1/icu4c-61_1-src.tgz
+  # https://github.com/unicode-org/icu/releases/download/release-63-1/icu4c-63_1-src.tgz
+  set(base_url "https://github.com/unicode-org/icu/releases/download")
+  set(src_dir_name    "icu4c-${ver_major}_${ver_minor}-src")
   set(arch_file_name  "${src_dir_name}.tgz")
   set(unpack_to_dir   "${unpacked_dir}/icu-${version}")
 
   set(${out_ARCH_SRC_URL}
-    "${base_url}/${version}/${arch_file_name}" PARENT_SCOPE
+    "${base_url}/release-${ver_major}-${ver_minor}/${arch_file_name}" PARENT_SCOPE
   )
   set(${out_ARCH_DST_FILE}  "${download_dir}/${arch_file_name}" PARENT_SCOPE)
   set(${out_ARCH_FILE_SHA}  "${arch_file_sha}" PARENT_SCOPE)
