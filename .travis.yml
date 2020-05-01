@@ -531,6 +531,8 @@ jobs:
         - *build_linux_env
         - cmr_CMAKE_BUILD_TYPE=Debug
         - cmr_BUILD_SHARED_LIBS=ON
+        # CMake target property LINK_WHAT_YOU_USE=ON does not help for ICU.
+        - LD_LIBRARY_PATH="${cmr_INSTALL_DIR}/lib:$LD_LIBRARY_PATH"
 
     - <<: *build_linux_gcc
       name: "Linux, gcc, debug, static"
@@ -545,6 +547,8 @@ jobs:
         - *build_linux_env
         - cmr_CMAKE_BUILD_TYPE=Release
         - cmr_BUILD_SHARED_LIBS=ON
+        # CMake target property LINK_WHAT_YOU_USE=ON does not help for ICU.
+        - LD_LIBRARY_PATH="${cmr_INSTALL_DIR}/lib:$LD_LIBRARY_PATH"
 
     - <<: *build_linux_gcc
       name: "Linux, gcc, release, static"
