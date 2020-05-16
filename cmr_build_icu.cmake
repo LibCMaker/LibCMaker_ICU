@@ -66,9 +66,10 @@ if(ICU_CROSS_COMPILING)
     )
   endif()
   # TODO:
-  set(ICU_CROSS_BUILDROOT
-    "${cmr_HOST_BUILD_DIR}/build_${ICU_lib_NAME}/icu-${ICU_lib_VERSION}/source"
-  )
+#  set(ICU_CROSS_BUILDROOT
+#    "${cmr_HOST_BUILD_DIR}/build_${ICU_lib_NAME}/icu-${ICU_lib_VERSION}/source"
+#  )
+  set(ICU_CROSS_BUILDROOT "${cmr_INSTALL_DIR}/host_tools")
 endif()
 # Compile with strict compiler options
 set(ICU_ENABLE_STRICT ON)

@@ -70,7 +70,7 @@
 
   if(find_BUILD_HOST_TOOLS)
     cmr_print_status("======== Build tools for cross building ========")
-    set(build_mode BUILD BUILD_HOST_TOOLS)
+    set(build_mode BUILD_HOST_TOOLS INSTALL)
   else()
     if(ICU_CROSS_COMPILING)
       cmr_print_status(

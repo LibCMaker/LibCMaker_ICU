@@ -185,7 +185,8 @@ install(
 #############################################################################
 
 # config/icucross.cmake:
-set(CROSS_BUILD_FILE ${PROJECT_BINARY_DIR}/config/icucross.cmake)
+set(CROSS_CONFIG_DIR ${PROJECT_BINARY_DIR}/config)
+set(CROSS_BUILD_FILE ${CROSS_CONFIG_DIR}/icucross.cmake)
 set(CROSS_BUILD_TEXT
   "
 set(CROSS_ICU_VERSION ${VERSION})
@@ -198,3 +199,10 @@ file(
   CONTENT ${CROSS_BUILD_TEXT}
   CONDITION $<CONFIG:Release>
 )
+
+if(NOT ICU_CROSS_COMPILING)
+  install(
+    DIRECTORY ${CROSS_CONFIG_DIR}
+    DESTINATION ${CMAKE_INSTALL_PREFIX}
+  )
+endif()
