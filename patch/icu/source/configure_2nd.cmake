@@ -168,7 +168,7 @@ elseif(EXISTS ${ICU_CROSS_BUILDROOT}/config/icucross.cmake)
   status_message("Using cross buildroot: ${ICU_CROSS_BUILDROOT}")
 elseif(EXISTS ${ICU_CROSS_BUILDROOT})
   error_message(
-    "${crossICU_CROSS_BUILDROOT}/config/icucross.cmake not found. Please build ICU in ${ICU_CROSS_BUILDROOT} first."
+    "${ICU_CROSS_BUILDROOT}/config/icucross.cmake not found. Please build ICU in ${ICU_CROSS_BUILDROOT} first."
   )
 else()
   error_message(
@@ -952,7 +952,7 @@ endif()
 # Enable/disable tools
 option(ICU_ENABLE_TOOLS "Build ICU's tools" ON)
 if(IOS OR ANDROID OR WINDOWS_STORE)
-  set(ICU_CROSS_BUILDROOT OFF CACHE BOOL "Build ICU's tools" FORCE)
+  set(ICU_ENABLE_TOOLS OFF CACHE BOOL "Build ICU's tools" FORCE)
 endif()
 ICU_CONDITIONAL(TOOLS ICU_ENABLE_TOOLS)
 
