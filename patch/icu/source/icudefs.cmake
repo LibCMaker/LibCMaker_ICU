@@ -250,6 +250,10 @@ if(MSVC)
   endif()
 endif()
 
+if(MINGW AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+  set(ICULIBSUFFIX_DEBUG "d")
+endif()
+
 if(MINGW AND CMAKE_C_COMPILER_ID STREQUAL "GNU")
   if(PROJECT_VERSION VERSION_GREATER 58.9)
     ## ICU requires a minimum target of Windows 7, and MinGW does not set this by default.
