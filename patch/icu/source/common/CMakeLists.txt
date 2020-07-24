@@ -43,6 +43,16 @@ if(PKGDATA_MODE STREQUAL "common")
       # for icu data location
       U_ICU_DATA_DEFAULT_DIR=\"${ICUDATA_DIR}\"
   )
+
+  # TODO: ICU_DATA_DIR_PREFIX_ENV_VAR for iOS simulator,
+  # see its using in 'icu/source/common/putil.cpp'
+  if(IOS)
+    set_property(TARGET ${lib_NAME} APPEND PROPERTY
+      COMPILE_DEFINITIONS
+        #ICU_DATA_DIR_PREFIX_ENV_VAR=\"HOME\"
+        ICU_DATA_DIR_PREFIX_ENV_VAR=nullptr
+    )
+  endif()
 endif()
 if(MSVC)
   set_property(TARGET ${lib_NAME} APPEND PROPERTY
