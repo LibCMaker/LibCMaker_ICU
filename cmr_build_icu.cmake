@@ -31,17 +31,17 @@
 
 # TODO: use U_CHARSET_IS_UTF8=1, see http://userguide.icu-project.org/strings/utf-8
 
-set(ICU_lib_NAME        "ICU")
-set(ICU_lib_VERSION     "63.1")
-set(ICU_lib_COMPONENTS  i18n uc data)
-set(ICU_lib_DIR         "${CMAKE_CURRENT_LIST_DIR}")
+set(ICU_lib_NAME "ICU")
+set(ICU_lib_VERSION "63.1" CACHE STRING "ICU_lib_VERSION")
+set(ICU_lib_COMPONENTS i18n uc data CACHE STRING "ICU_lib_COMPONENTS")
+set(ICU_lib_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "ICU_lib_DIR")
 
 # To use our Find<LibName>.cmake.
 list(APPEND CMAKE_MODULE_PATH "${ICU_lib_DIR}/cmake/modules")
 
 if(BUILD_FOR_WINXP OR CMAKE_GENERATOR_TOOLSET STREQUAL "v141_xp")
   # This is the last ICU4C release that works on Windows XP and Windows Vista.
-  set(ICU_lib_VERSION "58.2")
+  set(ICU_lib_VERSION "58.2" CACHE STRING "ICU_lib_VERSION" FORCE)
 endif()
 
 
@@ -49,7 +49,7 @@ endif()
 # LibCMaker_<LibName> specific vars and options
 #-----------------------------------------------------------------------
 
-set(COPY_ICU_CMAKE_BUILD_SCRIPTS ON)
+option(COPY_ICU_CMAKE_BUILD_SCRIPTS "COPY_ICU_CMAKE_BUILD_SCRIPTS" ON)
 
 
 #-----------------------------------------------------------------------
@@ -59,7 +59,7 @@ set(COPY_ICU_CMAKE_BUILD_SCRIPTS ON)
 option(ICU_CROSS_COMPILING "Enable cross compiling" OFF)
 option(ICU_INSTALL_CROSS_CONFIG "Install cross config" OFF)
 # Specify an absolute path to the build directory of an ICU built for the current platform
-set(ICU_CROSS_BUILDROOT "")
+set(_ICU_CROSS_BUILDROOT "")
 if(ICU_CROSS_COMPILING)
   if(NOT cmr_HOST_BUILD_DIR)
     cmr_print_error(
@@ -67,52 +67,56 @@ if(ICU_CROSS_COMPILING)
     )
   endif()
   # TODO:
-#  set(ICU_CROSS_BUILDROOT
+#  set(_ICU_CROSS_BUILDROOT
 #    "${cmr_HOST_BUILD_DIR}/build_${ICU_lib_NAME}/icu-${ICU_lib_VERSION}/source"
 #  )
-  set(ICU_CROSS_BUILDROOT "${cmr_INSTALL_DIR}/host_tools")
+  set(_ICU_CROSS_BUILDROOT "${cmr_INSTALL_DIR}/host_tools")
 endif()
+set(
+  ICU_CROSS_BUILDROOT ${_ICU_CROSS_BUILDROOT} CACHE PATH "ICU_CROSS_BUILDROOT"
+)
 # Compile with strict compiler options
-set(ICU_ENABLE_STRICT ON)
+option(ICU_ENABLE_STRICT "ICU_ENABLE_STRICT" ON)
 # Compile with 'm' library.
-set(ICU_USE_LIB_M OFF)
+option(ICU_USE_LIB_M "ICU_USE_LIB_M" OFF)
 # Enable auto cleanup of libraries
-set(ICU_ENABLE_AUTO_CLEANUP OFF)
+option(ICU_ENABLE_AUTO_CLEANUP "ICU_ENABLE_AUTO_CLEANUP" OFF)
 # Enable draft APIs (and internal APIs)
-set(ICU_ENABLE_DRAFT ON)
+option(ICU_ENABLE_DRAFT "ICU_ENABLE_DRAFT" ON)
 # Add a version suffix to symbols
-set(ICU_ENABLE_RENAMING ON)
+option(ICU_ENABLE_RENAMING "ICU_ENABLE_RENAMING" ON)
 # Enable function and data tracing
-set(ICU_ENABLE_TRACING OFF)
+option(ICU_ENABLE_TRACING "ICU_ENABLE_TRACING" OFF)
 # Enable plugins
-set(ICU_ENABLE_PLUGINS OFF)
+option(ICU_ENABLE_PLUGINS "ICU_ENABLE_PLUGINS" OFF)
 # Disable dynamic loading
-set(ICU_DISABLE_DYLOAD ON)
+option(ICU_DISABLE_DYLOAD "ICU_DISABLE_DYLOAD" ON)
 # Use rpath when linking
-set(ICU_ENABLE_RPATH OFF)
+option(ICU_ENABLE_RPATH "ICU_ENABLE_RPATH" OFF)
 # Compile with 'wxs' or 'w' libraries.
-set(ICU_USE_WCS_OR_W_LIB OFF)
+option(ICU_USE_WCS_OR_W_LIB "ICU_USE_WCS_OR_W_LIB" OFF)
 # Build ICU extras
-set(ICU_ENABLE_EXTRAS OFF) # TODO: not released
+option(ICU_ENABLE_EXTRAS "ICU_ENABLE_EXTRAS" OFF) # TODO: not released
 # Build ICU's icuio library
-set(ICU_ENABLE_ICUIO ON)
+option(ICU_ENABLE_ICUIO "ICU_ENABLE_ICUIO" ON)
 # Build ICU's Paragraph Layout library. icu-le-hb must be available via find_package(icu-le-hb). See http://harfbuzz.org
-set(ICU_ENABLE_LAYOUTEX OFF) # TODO: not released
+option(ICU_ENABLE_LAYOUTEX "ICU_ENABLE_LAYOUTEX" OFF) # TODO: not released
 # ...
-#set(ICU_ENABLE_LAYOUT OFF)
+#option(ICU_ENABLE_LAYOUT "ICU_ENABLE_LAYOUT" OFF)
 # Build ICU's tools
-set(ICU_ENABLE_TOOLS ON)
+set(_ICU_ENABLE_TOOLS ON)
 if(ICU_CROSS_COMPILING)
-  set(ICU_ENABLE_TOOLS OFF)
+  set(_ICU_ENABLE_TOOLS OFF)
 endif()
+option(ICU_ENABLE_TOOLS "ICU_ENABLE_TOOLS" ${_ICU_ENABLE_TOOLS})
 # Specify how to package ICU data. Possible values: files, archive, library, static, auto. See http://userguide.icu-project.org/icudata for more info
-set(ICU_DATA_PACKAGING "auto") # TODO: 'files' mode is not released
+set(ICU_DATA_PACKAGING "auto" CACHE STRING "ICU_DATA_PACKAGING") # TODO: 'files' mode is not released
 # Tag a suffix to the library names
-set(ICU_LIBRARY_SUFFIX "")
+set(ICU_LIBRARY_SUFFIX "" CACHE STRING "ICU_LIBRARY_SUFFIX")
 # Build ICU tests
-set(ICU_ENABLE_TESTS OFF) # TODO: not released
+option(ICU_ENABLE_TESTS "ICU_ENABLE_TESTS" OFF) # TODO: not released
 # Build ICU samples
-set(ICU_ENABLE_SAMPLES OFF) # TODO: not released
+option(ICU_ENABLE_SAMPLES "ICU_ENABLE_SAMPLES" OFF) # TODO: not released
 
 
 #-----------------------------------------------------------------------
