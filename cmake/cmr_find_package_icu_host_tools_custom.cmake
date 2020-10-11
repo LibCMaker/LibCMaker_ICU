@@ -24,7 +24,7 @@
     # Try to find already existed host tools.
     set(ICU_HOST_TOOLS_FOUND ON)
     #set(tmp_ICU_CROSS_BUILDROOT "${lib_BUILD_DIR}/icu-${find_VERSION}/source")
-    set(tmp_ICU_CROSS_BUILDROOT "${CMAKE_INSTALL_PREFIX}")
+    set(tmp_ICU_CROSS_BUILDROOT "${cmr_INSTALL_DIR}")
     set(icu_cross_config "${tmp_ICU_CROSS_BUILDROOT}/config/icucross.cmake")
 
     set(tool_list
