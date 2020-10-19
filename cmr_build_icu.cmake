@@ -39,7 +39,7 @@ set(ICU_lib_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "ICU_lib_DIR")
 # To use our Find<LibName>.cmake.
 list(APPEND CMAKE_MODULE_PATH "${ICU_lib_DIR}/cmake/modules")
 
-if(BUILD_FOR_WINXP OR CMAKE_GENERATOR_TOOLSET STREQUAL "v141_xp")
+if(BUILD_FOR_WINXP OR CMAKE_GENERATOR_TOOLSET MATCHES "v141_xp")
   # This is the last ICU4C release that works on Windows XP and Windows Vista.
   set(ICU_lib_VERSION "58.2" CACHE STRING "ICU_lib_VERSION" FORCE)
 endif()
