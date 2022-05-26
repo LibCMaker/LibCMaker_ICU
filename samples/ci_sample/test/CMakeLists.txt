@@ -23,7 +23,7 @@
 
 # Testing with Google Test.
 if(BUILD_TESTING)
-  cmr_common_sample_test_1st_part()
+  cmr_common_test_part()
 
   target_sources(${test_NAME}
     PRIVATE
@@ -42,6 +42,4 @@ if(BUILD_TESTING)
   target_link_libraries(${test_NAME} PRIVATE ICU::i18n ICU::uc ICU::data)
   # ICU is C++ library.
   set_target_properties(${test_NAME} PROPERTIES LINKER_LANGUAGE CXX)
-
-  cmr_common_sample_test_2nd_part()
 endif()
